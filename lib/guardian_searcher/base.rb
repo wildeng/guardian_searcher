@@ -35,8 +35,23 @@ module GuardianSearcher
 
       opt = ""
       options.each do |key, value|
-        opt += "&#{key}=#{value}"
+        # TODO: log a proper message if a key is not supported but continue with the ops building
+        continue unless valid_option?(key)
+        opt += "&#{map_option(key)}=#{value}"
       end
+    end
+
+    def valid_option?(option)
+      %i[from_date to_date page_size page].include?(option)
+    end
+
+    def map_option(key)
+      {
+        from_date: "from-date",
+        to_date: "to-date",
+        page_size: "page-size",
+        page: "page"
+      }[key]
     end
   end
 end
