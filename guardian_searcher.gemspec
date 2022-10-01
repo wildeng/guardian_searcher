@@ -28,12 +28,12 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"
-  spec.add_dependency "faraday"
+  spec.add_dependency "faraday", "~> 2.2"
 
-  spec.add_development_dependency 'vcr'
-  spec.add_development_dependency 'guard'
-  spec.add_development_dependency 'guard-bundler'
-  spec.add_development_dependency 'guard-rspec'
+  spec.add_development_dependency 'vcr', "~> 6.1"
+  spec.add_development_dependency 'guard', "~> 2.18"
+  spec.add_development_dependency 'guard-bundler', "~> 3.0"
+  spec.add_development_dependency 'guard-rspec', "~> 4.7"
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html
 end
