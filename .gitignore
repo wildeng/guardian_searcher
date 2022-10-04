@@ -6,7 +6,9 @@
 /pkg/
 /spec/reports/
 /tmp/
-
+# Ignore built gemfiles
+*.gem
 # rspec failure tracking
 Gemfile.lock
 .rspec_status
+.DS_Store

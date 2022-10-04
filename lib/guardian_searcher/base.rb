@@ -3,6 +3,7 @@
 module GuardianSearcher
   class Base
     include Faraday
+
     attr_reader :api_key
     attr_accessor :base_uri
 
@@ -31,12 +32,7 @@ module GuardianSearcher
     private
 
     def build_options(options)
-      return {} if options.empty?
-
-      opt = ""
-      options.each do |key, value|
-        opt += "&#{key}=#{value}"
-      end
+      Options.new(options).build_options
     end
   end
 end

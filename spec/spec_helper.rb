@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
+require "simplecov"
+SimpleCov.start
 require "guardian_searcher"
-require 'vcr'
+require "vcr"
 
 VCR.configure do |c|
-  c.cassette_library_dir     = 'spec/cassettes'
-  c.hook_into                :faraday
+  c.cassette_library_dir = "spec/cassettes"
+  c.hook_into :faraday
 end
 
 RSpec.configure do |config|

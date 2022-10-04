@@ -26,7 +26,36 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+  # To include the gem in your code
+  require 'guardian_searcher'
+
+  # To initialise the gem
+  searcher = GuardianSearcher::Search.new(api_key: <your-api-key>)
+
+  # Simplest usage
+  results = searcher.search('your keyword') 
+```
+
+There are some supported option that will be mapped to the api query and these are in the Options
+class
+
+```ruby
+{
+  from_date: "from-date",
+  to_date: "to-date",
+  page_size: "page-size",
+  page: "page"
+}
+```
+
+In this way your search could become something like
+
+```ruby
+results = searcher.search('your keyword', { from_date: '2022-10-01', page_size: 10 })
+```
+
+If you add something unsupported it will throw an `OptionsNotSupportedError`
 
 ## Development
 

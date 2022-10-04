@@ -13,4 +13,11 @@ RSpec.describe GuardianSearcher do
     searcher = GuardianSearcher::Search.new(api_key: "test")
     expect(searcher.api_key).to eq("test")
   end
+
+  it "rejects not valid options" do
+    searcher = GuardianSearcher::Search.new(api_key: "test")
+    expect { searcher.search("football", { "test": "pippo" }) }.to raise_error(
+      GuardianSearcher::OptionsNotSupportedError
+    )
+  end
 end
