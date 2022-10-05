@@ -57,6 +57,38 @@ results = searcher.search('your keyword', { from_date: '2022-10-01', page_size: 
 
 If you add something unsupported it will throw an `OptionsNotSupportedError`
 
+The results of the search can be used as they are, a Farady response object or you can parse them using `GuardianSearcher::SearchResult` in the following way:
+
+```ruby
+response_body = searcher.search('your keyword', { from_date: '2022-10-01', page_size: 10 }).body
+results = GuardianSearcher::SearchResult.parse_results(body: response_body)
+```
+This will return a `SearchResult` object which the following attributes:
+
+```ruby
+@current_page
+@results # an array with all the search results
+@page_size # paging size
+@pages # number of pages
+@start # starting page
+```
+
+Of interest the structure of a single element of the results array, which is an Hash array similar to this
+
+```ruby
+{"id"=>"football/2022/sep/23/player-mutiny-exposes-deeper-issues-within-spanish-womens-football",
+    "type"=>"article",
+    "sectionId"=>"football",
+    "sectionName"=>"Football",
+    "webPublicationDate"=>"2022-09-23T19:20:09Z",
+    "webTitle"=>"Player mutiny exposes deeper issues within Spanish women’s football | Sid Lowe",
+    "webUrl"=>"https://www.theguardian.com/football/2022/sep/23/player-mutiny-exposes-deeper-issues-within-spanish-womens-football",
+    "apiUrl"=>"https://content.guardianapis.com/football/2022/sep/23/player-mutiny-exposes-deeper-issues-within-spanish-womens-football",
+    "isHosted"=>false,
+    "pillarId"=>"pillar/sport",
+    "pillarName"=>"Sport"}
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
