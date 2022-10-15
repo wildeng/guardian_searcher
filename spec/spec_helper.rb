@@ -4,6 +4,7 @@ require "simplecov"
 SimpleCov.start
 require "guardian_searcher"
 require "vcr"
+require "byebug"
 
 VCR.configure do |c|
   c.cassette_library_dir = "spec/cassettes"

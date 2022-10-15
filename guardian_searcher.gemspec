@@ -8,7 +8,10 @@ Gem::Specification.new do |spec|
   spec.authors       = "Alain Mauri"
   spec.email         = "wildeng@hotmail.com"
 
-  spec.summary       = "A wrapper to search articles from The Guardian"
+  spec.summary       = "A wrapper to search articles from The Guardian, using its open API.
+    You need to register and get your api key to properly use this gem.
+    It uses Faraday to make the API calls and has some classes that should help in formatting
+    the results as easy to manage Ruby object."
   spec.homepage      = "https://alainmauri.eu"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
@@ -30,6 +33,7 @@ Gem::Specification.new do |spec|
   # spec.add_dependency "example-gem", "~> 1.0"
   spec.add_dependency "faraday", "~> 2.2"
 
+  spec.add_development_dependency "byebug", "~> 11"
   spec.add_development_dependency "guard", "~> 2.18"
   spec.add_development_dependency "guard-bundler", "~> 3.0"
   spec.add_development_dependency "guard-rspec", "~> 4.7"
