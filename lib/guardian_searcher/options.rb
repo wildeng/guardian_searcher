@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 module GuardianSearcher
-  class OptionsNotHashError < StandardError; end
-  class OptionsNotSupportedError < StandardError; end
-
   class Options < Hash
     private attr_accessor :options
 
