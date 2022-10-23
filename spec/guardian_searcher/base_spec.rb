@@ -23,4 +23,40 @@ RSpec.describe GuardianSearcher::Base do
       end
     end
   end
+
+  describe "#search_sections", :vcr do
+    let(:described_class) { GuardianSearcher::Search.new(api_key: "test") }
+    let(:search_term) { "politics" }
+
+    it "returns a 200" do
+      VCR.use_cassette("section_returns_a_200") do
+        response = described_class.search_sections(search_term)
+        expect(response.status).to eq(200)
+      end
+    end
+  end
+
+  describe "#search_tags", :vcr do
+    let(:described_class) { GuardianSearcher::Search.new(api_key: "test") }
+    let(:search_term) { "football" }
+
+    it "returns a 200" do
+      VCR.use_cassette("tags_returns_a_200") do
+        response = described_class.search_tags(search_term)
+        expect(response.status).to eq(200)
+      end
+    end
+  end
+
+  describe "#search_editions", :vcr do
+    let(:described_class) { GuardianSearcher::Search.new(api_key: "test") }
+    let(:search_term) { "canada" }
+
+    it "returns a 200" do
+      VCR.use_cassette("editons_returns_a_200") do
+        response = described_class.search_editions(search_term)
+        expect(response.status).to eq(200)
+      end
+    end
+  end
 end

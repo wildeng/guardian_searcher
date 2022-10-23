@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module GuardianSearcher
+  # Class that handles the basic functionality for the Guardian Reader gem
   class Base
     include Faraday
 
@@ -13,13 +14,23 @@ module GuardianSearcher
     end
 
     # Options needs to be passed following Guardian API docs
-    def search(q, options = {})
-      url = search_uri + query_string(q, options)
+    def search(query, options = {})
+      url = search_uri + query_string(query, options)
       Faraday.get(url)
     end
 
-    def search_sections(q, options = {})
-      url = sections_uri + query_string(q, options)
+    def search_sections(query, options = {})
+      url = sections_uri + query_string(query, options)
+      Faraday.get(url)
+    end
+
+    def search_tags(query, options = {})
+      url = tags_uri + query_string(query, options)
+      Faraday.get(url)
+    end
+
+    def search_editions(query, options = {})
+      url = editions_uri + query_string(query, options)
       Faraday.get(url)
     end
 
