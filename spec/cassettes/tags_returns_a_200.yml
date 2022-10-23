@@ -1,0 +1,66 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://content.guardianapis.com/tags?api-key=test&q=football&%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.2.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - "*"
+      cache-control:
+      - max-age=0, no-cache="set-cookie"
+      content-type:
+      - application/json
+      date:
+      - Sun, 23 Oct 2022 17:25:51 GMT
+      server:
+      - Concierge
+      set-cookie:
+      - AWSELB=61333B9F0C5AD261207F6E5FA0D68F756E92684ED5E60B844CB43F903B20D49CD7C4CE6238891F5A25013E33745F6C3F5BAF11384C44AF1A124D9ABEA26579DCAEC48C5308;PATH=/;MAX-AGE=86400,
+        AWSELBCORS=61333B9F0C5AD261207F6E5FA0D68F756E92684ED5E60B844CB43F903B20D49CD7C4CE6238891F5A25013E33745F6C3F5BAF11384C44AF1A124D9ABEA26579DCAEC48C5308;PATH=/;MAX-AGE=86400;SECURE;SAMESITE=None
+      via:
+      - kong/1.5.1
+      x-kong-proxy-latency:
+      - '0'
+      x-kong-upstream-latency:
+      - '6'
+      x-ratelimit-limit-day:
+      - '50000'
+      x-ratelimit-limit-minute:
+      - '720'
+      x-ratelimit-remaining-day:
+      - '47839'
+      x-ratelimit-remaining-minute:
+      - '718'
+      content-length:
+      - '795'
+      connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: '{"response":{"status":"ok","userTier":"developer","total":1549,"startIndex":1,"pageSize":10,"currentPage":1,"pages":155,"results":[{"id":"katine/football","type":"keyword","sectionId":"katine","sectionName":"Katine","webTitle":"Football","webUrl":"https://www.theguardian.com/katine/football","apiUrl":"https://content.guardianapis.com/katine/football"},{"id":"football/football","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football","webUrl":"https://www.theguardian.com/football/football","apiUrl":"https://content.guardianapis.com/football/football"},{"id":"sport/college-football","type":"keyword","sectionId":"sport","sectionName":"Sport","webTitle":"College
+        football","webUrl":"https://www.theguardian.com/sport/college-football","apiUrl":"https://content.guardianapis.com/sport/college-football"},{"id":"football/laws-of-football","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Laws
+        of football","webUrl":"https://www.theguardian.com/football/laws-of-football","apiUrl":"https://content.guardianapis.com/football/laws-of-football"},{"id":"football/football-agents","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football
+        agents","webUrl":"https://www.theguardian.com/football/football-agents","apiUrl":"https://content.guardianapis.com/football/football-agents"},{"id":"football/footballinireland","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football
+        in Ireland","webUrl":"https://www.theguardian.com/football/footballinireland","apiUrl":"https://content.guardianapis.com/football/footballinireland"},{"id":"profile/the-secret-footballer","type":"contributor","webTitle":"The
+        Secret Footballer","webUrl":"https://www.theguardian.com/profile/the-secret-footballer","apiUrl":"https://content.guardianapis.com/profile/the-secret-footballer","bio":"<p>The
+        Guardian''s man inside the game lifts the lid on the world of football</p>","bylineImageUrl":"https://static.guim.co.uk/sys-images/Football/Clubs/Club_Home/2011/3/6/1299430801288/The-Secret-Footballer-003.jpg","firstName":"the","lastName":"secretfootballer"},{"id":"football/football-further-blog","type":"blog","sectionId":"football","sectionName":"Football","webTitle":"Football
+        further","webUrl":"https://www.theguardian.com/football/football-further-blog","apiUrl":"https://content.guardianapis.com/football/football-further-blog","description":"Fresh
+        perspectives on tactical trends and football in England and France"},{"id":"profile/spiritoffootball","type":"contributor","webTitle":"Spirit
+        of Football","webUrl":"https://www.theguardian.com/profile/spiritoffootball","apiUrl":"https://content.guardianapis.com/profile/spiritoffootball","firstName":"of","lastName":"spirit"},{"id":"football/series/the-football-mine","type":"series","sectionId":"football","sectionName":"Football","webTitle":"The
+        football mine","webUrl":"https://www.theguardian.com/football/series/the-football-mine","apiUrl":"https://content.guardianapis.com/football/series/the-football-mine","description":"<p>A
+        collection of sports writing by <a href=\"https://www.theguardian.com/profile/richard-foster\">Richard
+        Foster</a></p>"}]}}'
+  recorded_at: Sun, 23 Oct 2022 17:25:51 GMT
+recorded_with: VCR 6.1.0

@@ -1,11 +1,10 @@
 # GuardianSearcher
 
-[![Gem Version](https://badge.fury.io/rb/guardian_searcher.svg)](https://badge.fury.io/rb/guardian_searcher)
 
 This is a work in progress, and its status is currently an alpha version. Tests needs to be implemented and the code is not optimal.
 The goal of this project is to provide a Ruby wrapper to query the Guardian Api and to experiment with some programming techniques.
 
-Documentation of TheGUardian API is [Here](https://open-platform.theguardian.com/documentation/)
+Documentation of TheGuardian API is [Here](https://open-platform.theguardian.com/documentation/)
 
 If you wanna try it you need to have an API key and use it as an environment variable.
 
@@ -91,6 +90,45 @@ Of interest the structure of a single element of the results array, which is an 
     "isHosted"=>false,
     "pillarId"=>"pillar/sport",
     "pillarName"=>"Sport"}
+```
+At this point you can use the `SearchResult` object as it is or you could convert it to an Array of `Content` objects in the following way:
+```ruby
+generator = GuardianSearcher::Helpers::Generator.new
+# results is the SearchResult object created before which has an attribute
+# called results. Not a great name choice but sorry about that
+contents = generator.generate(results.results, "GuardianSearcher::Content")
+```
+
+Each element of the `contents` Array will be an instance of the `Content` class, with a number of attributes that depends on the returned results i.e. that
+if an element of the results attribute is something like:
+```ruby
+{"id"=>"football/2022/jun/27/football-transfer-rumours-chelsea-to-sign-matthijs-de-ligt-from-juventus",
+    "type"=>"article",
+    "sectionId"=>"football",
+    "sectionName"=>"Football",
+    "webPublicationDate"=>"2022-06-27T08:42:20Z",
+    "webTitle"=>"Football transfer rumours: Chelsea to sign Matthijs de Ligt from Juventus? ",
+    "webUrl"=>"https://www.theguardian.com/football/2022/jun/27/football-transfer-rumours-chelsea-to-sign-matthijs-de-ligt-from-juventus",
+    "apiUrl"=>"https://content.guardianapis.com/football/2022/jun/27/football-transfer-rumours-chelsea-to-sign-matthijs-de-ligt-from-juventus",
+    "isHosted"=>false,
+    "pillarId"=>"pillar/sport",
+    "pillarName"=>"Sport"}
+```
+One element of the `contents` array will be something like:
+
+```ruby
+<GuardianSearcher::Content:0x0000000150b7fe70
+  @api_url="https://content.guardianapis.com/football/2022/jun/27/football-transfer-rumours-chelsea-to-sign-matthijs-de-ligt-from-juventus",
+  @id="football/2022/jun/27/football-transfer-rumours-chelsea-to-sign-matthijs-de-ligt-from-juventus",
+  @is_hosted=false,
+  @pillar_id="pillar/sport",
+  @pillar_name="Sport",
+  @section_id="football",
+  @section_name="Football",
+  @type="article",
+  @web_publication_date="2022-06-27T08:42:20Z",
+  @web_title="Football transfer rumours: Chelsea to sign Matthijs de Ligt from Juventus? ",
+  @web_url="https://www.theguardian.com/football/2022/jun/27/football-transfer-rumours-chelsea-to-sign-matthijs-de-ligt-from-juventus">
 ```
 
 ## Development

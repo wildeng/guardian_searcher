@@ -1,7 +1,5 @@
 ## [Unreleased]
 
-- Added Content class
-- Added Helpers classes
 
 ## [0.1.0] - 2022-10-01
 
@@ -15,3 +13,10 @@
 
 - Moved options parse in their Options class
 - Updated readme
+
+## [0.1.3] - 2022-10-23
+
+- Added Content class
+- Added Helpers classes ( Generator & Util)
+- Added some additional methods to Base class - search tags and editons endpoints
+- Improved code coverage (Happy Paths only for now)
