@@ -1,5 +1,6 @@
 # GuardianSearcher
 
+[![Gem Version](https://badge.fury.io/rb/guardian_searcher.svg)](https://badge.fury.io/rb/guardian_searcher)
 
 This is a work in progress, and its status is currently an alpha version. Tests needs to be implemented and the code is not optimal.
 The goal of this project is to provide a Ruby wrapper to query the Guardian Api and to experiment with some programming techniques.
