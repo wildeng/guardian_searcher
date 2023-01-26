@@ -10,6 +10,10 @@ module GuardianSearcher
       super(method_name, *args, &blk)
     end
 
+    def respond_to_missing?(method_name, *args)
+      @options.key?(method_name) || super(method_name, *args)
+    end
+
     def initialize(options)
       raise OptionsNotHashError unless options.is_a?(Hash)
 
