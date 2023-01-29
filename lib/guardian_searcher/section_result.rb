@@ -3,6 +3,8 @@
 require "json"
 
 module GuardianSearcher
+  # The class parses the search results and creates a new
+  # SearchResults object
   class SectionResult
     attr_reader :results, :editions
 

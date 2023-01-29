@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module GuardianSearcher
+  # the class maps the options passed to the ones needed
+  # by the Guardian API for searching
   class Options < Hash
-    private attr_accessor :options
-
     def method_missing(method_name, *args, &blk)
       return options.[](method_name, &blk) if @options.key?(method_name)
 
@@ -15,6 +15,7 @@ module GuardianSearcher
     end
 
     def initialize(options)
+      super
       raise OptionsNotHashError unless options.is_a?(Hash)
 
       @options = options
@@ -42,5 +43,9 @@ module GuardianSearcher
         page: "page"
       }[key]
     end
+
+    private
+
+    attr_accessor :options
   end
 end
