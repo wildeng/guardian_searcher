@@ -14,42 +14,49 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      date:
+      - Sun, 12 Nov 2023 15:34:33 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '794'
+      connection:
+      - keep-alive
+      set-cookie:
+      - AWSALB=KOLQ/BeU7+tvjZQAIhjQ4oXx90muS91o64CC7+FOn8bNZuVfVrAVGziRs+JmaiXWq2vZiSi+VkAdLdMWTxDomRB6sB1ga0ziWIxdb/l/NBqBocgQh2cuUk8sATed;
+        Expires=Sun, 19 Nov 2023 15:34:33 GMT; Path=/, AWSALBCORS=KOLQ/BeU7+tvjZQAIhjQ4oXx90muS91o64CC7+FOn8bNZuVfVrAVGziRs+JmaiXWq2vZiSi+VkAdLdMWTxDomRB6sB1ga0ziWIxdb/l/NBqBocgQh2cuUk8sATed;
+        Expires=Sun, 19 Nov 2023 15:34:33 GMT; Path=/; SameSite=None; Secure
+      x-ratelimit-remaining-day:
+      - '48589'
+      x-ratelimit-limit-day:
+      - '50000'
+      ratelimit-reset:
+      - '27'
+      ratelimit-remaining:
+      - '718'
+      ratelimit-limit:
+      - '720'
+      x-ratelimit-remaining-minute:
+      - '718'
+      x-ratelimit-limit-minute:
+      - '720'
       access-control-allow-credentials:
       - 'true'
       access-control-allow-origin:
       - "*"
       cache-control:
-      - max-age=0, no-cache="set-cookie"
-      content-type:
-      - application/json
-      date:
-      - Sun, 23 Oct 2022 17:25:51 GMT
+      - max-age=0
       server:
       - Concierge
-      set-cookie:
-      - AWSELB=61333B9F0C5AD261207F6E5FA0D68F756E92684ED5E60B844CB43F903B20D49CD7C4CE6238891F5A25013E33745F6C3F5BAF11384C44AF1A124D9ABEA26579DCAEC48C5308;PATH=/;MAX-AGE=86400,
-        AWSELBCORS=61333B9F0C5AD261207F6E5FA0D68F756E92684ED5E60B844CB43F903B20D49CD7C4CE6238891F5A25013E33745F6C3F5BAF11384C44AF1A124D9ABEA26579DCAEC48C5308;PATH=/;MAX-AGE=86400;SECURE;SAMESITE=None
-      via:
-      - kong/1.5.1
+      x-kong-upstream-latency:
+      - '5'
       x-kong-proxy-latency:
       - '0'
-      x-kong-upstream-latency:
-      - '6'
-      x-ratelimit-limit-day:
-      - '50000'
-      x-ratelimit-limit-minute:
-      - '720'
-      x-ratelimit-remaining-day:
-      - '47839'
-      x-ratelimit-remaining-minute:
-      - '718'
-      content-length:
-      - '795'
-      connection:
-      - keep-alive
+      via:
+      - kong/3.1.1
     body:
       encoding: ASCII-8BIT
-      string: '{"response":{"status":"ok","userTier":"developer","total":1549,"startIndex":1,"pageSize":10,"currentPage":1,"pages":155,"results":[{"id":"katine/football","type":"keyword","sectionId":"katine","sectionName":"Katine","webTitle":"Football","webUrl":"https://www.theguardian.com/katine/football","apiUrl":"https://content.guardianapis.com/katine/football"},{"id":"football/football","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football","webUrl":"https://www.theguardian.com/football/football","apiUrl":"https://content.guardianapis.com/football/football"},{"id":"sport/college-football","type":"keyword","sectionId":"sport","sectionName":"Sport","webTitle":"College
+      string: '{"response":{"status":"ok","userTier":"developer","total":1603,"startIndex":1,"pageSize":10,"currentPage":1,"pages":161,"results":[{"id":"katine/football","type":"keyword","sectionId":"katine","sectionName":"Katine","webTitle":"Football","webUrl":"https://www.theguardian.com/katine/football","apiUrl":"https://content.guardianapis.com/katine/football"},{"id":"football/football","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football","webUrl":"https://www.theguardian.com/football/football","apiUrl":"https://content.guardianapis.com/football/football"},{"id":"sport/college-football","type":"keyword","sectionId":"sport","sectionName":"Sport","webTitle":"College
         football","webUrl":"https://www.theguardian.com/sport/college-football","apiUrl":"https://content.guardianapis.com/sport/college-football"},{"id":"football/laws-of-football","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Laws
         of football","webUrl":"https://www.theguardian.com/football/laws-of-football","apiUrl":"https://content.guardianapis.com/football/laws-of-football"},{"id":"football/football-agents","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football
         agents","webUrl":"https://www.theguardian.com/football/football-agents","apiUrl":"https://content.guardianapis.com/football/football-agents"},{"id":"football/footballinireland","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football
@@ -62,5 +69,5 @@ http_interactions:
         football mine","webUrl":"https://www.theguardian.com/football/series/the-football-mine","apiUrl":"https://content.guardianapis.com/football/series/the-football-mine","description":"<p>A
         collection of sports writing by <a href=\"https://www.theguardian.com/profile/richard-foster\">Richard
         Foster</a></p>"}]}}'
-  recorded_at: Sun, 23 Oct 2022 17:25:51 GMT
+  recorded_at: Sun, 12 Nov 2023 15:34:33 GMT
 recorded_with: VCR 6.1.0

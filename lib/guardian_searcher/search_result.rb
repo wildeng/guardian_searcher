@@ -21,6 +21,25 @@ module GuardianSearcher
       @start = start
     end
 
+    def self.parse_with_codes(response: nil)
+      raise GuardianSearcher::GuardianSearcherUndefinedResponse unless response
+      case response.status
+      when "200"
+        self.parse_results(body: response.body)
+      when "400"
+        message = JSON.parse(response.body)["message"]
+        raise GuardianSearcher::GuardianBadRequestError.new(message)
+      when "401"
+        message = JSON.parse(response.body)["message"]
+        raise GuardianSearcher::GuardianUnauthorizedError.new(message)
+      when "500"
+        message = JSON.parse(response.body)["message"]
+        raise GuardianSearcher::GuardianInternalServerError.new(message)
+      else
+        raise GuardianSearcher::GuardianUnknownError.new("Unknown error, check Faraday response")
+      end
+    end
+
     def self.parse_results(body: nil)
       return unless body
 
