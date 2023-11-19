@@ -14,41 +14,48 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      date:
+      - Sun, 12 Nov 2023 15:34:33 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '95'
+      connection:
+      - keep-alive
+      set-cookie:
+      - AWSALB=oRz1Hp7RCBdgFUbp1W9Ak6CVZA32FydQ62mMGZ2RkOk9bI+wLXRnEg1c86WWKyD4SEJDVIXdo+PF2xZoD1cxqunr4c1bY99JhktBG/6Nj0iRSMalWfIkpVT7ZOz8;
+        Expires=Sun, 19 Nov 2023 15:34:33 GMT; Path=/, AWSALBCORS=oRz1Hp7RCBdgFUbp1W9Ak6CVZA32FydQ62mMGZ2RkOk9bI+wLXRnEg1c86WWKyD4SEJDVIXdo+PF2xZoD1cxqunr4c1bY99JhktBG/6Nj0iRSMalWfIkpVT7ZOz8;
+        Expires=Sun, 19 Nov 2023 15:34:33 GMT; Path=/; SameSite=None; Secure
+      x-ratelimit-remaining-day:
+      - '48588'
+      x-ratelimit-limit-day:
+      - '50000'
+      ratelimit-reset:
+      - '27'
+      ratelimit-remaining:
+      - '717'
+      ratelimit-limit:
+      - '720'
+      x-ratelimit-remaining-minute:
+      - '717'
+      x-ratelimit-limit-minute:
+      - '720'
       access-control-allow-credentials:
       - 'true'
       access-control-allow-origin:
       - "*"
       cache-control:
-      - max-age=0, no-cache="set-cookie"
-      content-type:
-      - application/json
-      date:
-      - Sun, 23 Oct 2022 17:25:05 GMT
+      - max-age=0
       server:
       - Concierge
-      set-cookie:
-      - AWSELB=61333B9F0C5AD261207F6E5FA0D68F756E92684ED5780F3EE7B7497EB754B810CC5319349C891F5A25013E33745F6C3F5BAF11384CB55EDF7D80693DA73C781ED50B359F7E;PATH=/;MAX-AGE=86400,
-        AWSELBCORS=61333B9F0C5AD261207F6E5FA0D68F756E92684ED5780F3EE7B7497EB754B810CC5319349C891F5A25013E33745F6C3F5BAF11384CB55EDF7D80693DA73C781ED50B359F7E;PATH=/;MAX-AGE=86400;SECURE;SAMESITE=None
-      via:
-      - kong/1.5.1
-      x-kong-proxy-latency:
-      - '0'
       x-kong-upstream-latency:
-      - '4'
-      x-ratelimit-limit-day:
-      - '50000'
-      x-ratelimit-limit-minute:
-      - '720'
-      x-ratelimit-remaining-day:
-      - '47976'
-      x-ratelimit-remaining-minute:
-      - '718'
-      content-length:
-      - '95'
-      connection:
-      - keep-alive
+      - '3'
+      x-kong-proxy-latency:
+      - '1'
+      via:
+      - kong/3.1.1
     body:
       encoding: ASCII-8BIT
       string: '{"response":{"status":"ok","userTier":"developer","total":0,"results":[]}}'
-  recorded_at: Sun, 23 Oct 2022 17:25:05 GMT
+  recorded_at: Sun, 12 Nov 2023 15:34:33 GMT
 recorded_with: VCR 6.1.0

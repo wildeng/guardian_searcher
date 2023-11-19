@@ -14,41 +14,48 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      date:
+      - Sun, 12 Nov 2023 15:34:33 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '182'
+      connection:
+      - keep-alive
+      set-cookie:
+      - AWSALB=2PEZ+yLTFa5iJa7cNsSVlYrsnpi6hrrfZ+zMiWQWMhKIrE6FBvmYsgHXr/12feX1Mcocw1NUUkfCDIJSHFnnXcDlAiOhuzmGfY/0jcNG1UqgiUTTe1hXCtpFP9hC;
+        Expires=Sun, 19 Nov 2023 15:34:33 GMT; Path=/, AWSALBCORS=2PEZ+yLTFa5iJa7cNsSVlYrsnpi6hrrfZ+zMiWQWMhKIrE6FBvmYsgHXr/12feX1Mcocw1NUUkfCDIJSHFnnXcDlAiOhuzmGfY/0jcNG1UqgiUTTe1hXCtpFP9hC;
+        Expires=Sun, 19 Nov 2023 15:34:33 GMT; Path=/; SameSite=None; Secure
+      x-ratelimit-remaining-day:
+      - '48572'
+      x-ratelimit-limit-day:
+      - '50000'
+      ratelimit-reset:
+      - '27'
+      ratelimit-remaining:
+      - '717'
+      ratelimit-limit:
+      - '720'
+      x-ratelimit-remaining-minute:
+      - '717'
+      x-ratelimit-limit-minute:
+      - '720'
       access-control-allow-credentials:
       - 'true'
       access-control-allow-origin:
       - "*"
       cache-control:
-      - max-age=0, no-cache="set-cookie"
-      content-type:
-      - application/json
-      date:
-      - Sun, 23 Oct 2022 17:09:26 GMT
+      - max-age=0
       server:
       - Concierge
-      set-cookie:
-      - AWSELB=61333B9F0C5AD261207F6E5FA0D68F756E92684ED5796F07D8D3A8574204E43E1C7DBE048B891F5A25013E33745F6C3F5BAF11384CEC39C909BDE88E54262E4BE2F6AE0129;PATH=/;MAX-AGE=86400,
-        AWSELBCORS=61333B9F0C5AD261207F6E5FA0D68F756E92684ED5796F07D8D3A8574204E43E1C7DBE048B891F5A25013E33745F6C3F5BAF11384CEC39C909BDE88E54262E4BE2F6AE0129;PATH=/;MAX-AGE=86400;SECURE;SAMESITE=None
-      via:
-      - kong/1.5.1
+      x-kong-upstream-latency:
+      - '5'
       x-kong-proxy-latency:
       - '1'
-      x-kong-upstream-latency:
-      - '3'
-      x-ratelimit-limit-day:
-      - '50000'
-      x-ratelimit-limit-minute:
-      - '720'
-      x-ratelimit-remaining-day:
-      - '47972'
-      x-ratelimit-remaining-minute:
-      - '719'
-      content-length:
-      - '182'
-      connection:
-      - keep-alive
+      via:
+      - kong/3.1.1
     body:
       encoding: ASCII-8BIT
       string: '{"response":{"status":"ok","userTier":"developer","total":1,"results":[{"id":"politics","webTitle":"Politics","webUrl":"https://www.theguardian.com/politics","apiUrl":"https://content.guardianapis.com/politics","editions":[{"id":"politics","webTitle":"Politics","webUrl":"https://www.theguardian.com/politics","apiUrl":"https://content.guardianapis.com/politics","code":"default"}]}]}}'
-  recorded_at: Sun, 23 Oct 2022 17:09:26 GMT
+  recorded_at: Sun, 12 Nov 2023 15:34:33 GMT
 recorded_with: VCR 6.1.0

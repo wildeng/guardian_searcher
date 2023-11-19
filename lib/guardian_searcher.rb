@@ -14,6 +14,11 @@ require_relative "guardian_searcher/options"
 module GuardianSearcher
   class Error < StandardError; end
   class GuardianApyKeyError < StandardError; end
+  class GuardianUnauthorizedError < StandardError; end
+  class GuardianBadRequestError < StandardError; end
+  class GuardianInternalServerError < StandardError; end
+  class GuardianUnknownError < StandardError; end
+  class GuardianSearcherUndefinedResponse < StandardError; end
   class OptionsNotHashError < StandardError; end
   class OptionsNotSupportedError < StandardError; end
 end

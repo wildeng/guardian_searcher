@@ -1,5 +1,5 @@
 ## [Unreleased]
-
+- Parse results and return an exception based on the Guardian API response
 
 ## [0.1.0] - 2022-10-01
 

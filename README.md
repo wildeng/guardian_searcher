@@ -61,7 +61,7 @@ results = searcher.search('your keyword', { from_date: '2022-10-01', page_size: 
 
 If you add something unsupported it will throw an `OptionsNotSupportedError`
 
-The results of the search can be used as they are, a Farady response object or you can parse them using `GuardianSearcher::SearchResult` in the following way:
+The results of the search can be used as they are, a Farady response object or you can parse - remember to check for the response code first - them using `GuardianSearcher::SearchResult` in the following way:
 
 ```ruby
 response_body = searcher.search('your keyword', { from_date: '2022-10-01', page_size: 10 }).body
@@ -75,6 +75,22 @@ This will return a `SearchResult` object which the following attributes:
 @page_size # paging size
 @pages # number of pages
 @start # starting page
+```
+
+However if you want the gem to take care of the response codes and use its built in errors just use
+
+```ruby
+response = searcher.search('your keyword', { from_date: '2022-10-01', page_size: 10 })
+results = GuardianSearcher::SearchResult.parse_with_codes(response)
+```
+
+This will return a `SearchResult` object or one of the following errors
+
+```ruby
+GuardianUnauthorizedError   # when a 401 is returned
+GuardianBadRequestError     # when a 400 is returned
+GuardianInternalServerError # when a 500 is returned
+GuardianUnknownError        # when an error code is not among the above ones
 ```
 
 Of interest the structure of a single element of the results array, which is an Hash array similar to this

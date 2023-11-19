@@ -22,6 +22,14 @@ RSpec.describe GuardianSearcher::Base do
         expect(response.status).to eq(200)
       end
     end
+
+    it "returns a 401 if unauthorised" do
+      VCR.use_cassette("returns_a_401") do
+        searcher = GuardianSearcher::Search.new(api_key: "xxxtest")
+        response = searcher.search(search_term)
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
   describe "#search_sections", :vcr do
