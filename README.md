@@ -88,8 +88,9 @@ This will return a `SearchResult` object or one of the following errors
 
 ```ruby
 GuardianUnauthorizedError   # when a 401 is returned
-GuardianBadRequestError     # when 4 400 is returned
-GuardianInternalServerError # when a 400 is returned
+GuardianBadRequestError     # when a 400 is returned
+GuardianInternalServerError # when a 500 is returned
+GuardianUnknownError        # when an error code is not among the above ones
 ```
 
 Of interest the structure of a single element of the results array, which is an Hash array similar to this
