@@ -15,7 +15,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Sun, 12 Nov 2023 15:34:33 GMT
+      - Sun, 15 Dec 2024 17:09:08 GMT
       content-type:
       - application/json
       content-length:
@@ -23,22 +23,22 @@ http_interactions:
       connection:
       - keep-alive
       set-cookie:
-      - AWSALB=oRz1Hp7RCBdgFUbp1W9Ak6CVZA32FydQ62mMGZ2RkOk9bI+wLXRnEg1c86WWKyD4SEJDVIXdo+PF2xZoD1cxqunr4c1bY99JhktBG/6Nj0iRSMalWfIkpVT7ZOz8;
-        Expires=Sun, 19 Nov 2023 15:34:33 GMT; Path=/, AWSALBCORS=oRz1Hp7RCBdgFUbp1W9Ak6CVZA32FydQ62mMGZ2RkOk9bI+wLXRnEg1c86WWKyD4SEJDVIXdo+PF2xZoD1cxqunr4c1bY99JhktBG/6Nj0iRSMalWfIkpVT7ZOz8;
-        Expires=Sun, 19 Nov 2023 15:34:33 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=iOgixABY793Lx5329qesrd4aPGWxM9z2C0esqUrGm7vIJSty/MiBHVjCqXvprrhwULH3m4+oie7jdUTihsc9fi7sjUTDwvrcbiOz2uEK4845PqoBeHGkwxsmujgz;
+        Expires=Sun, 22 Dec 2024 17:09:08 GMT; Path=/, AWSALBCORS=iOgixABY793Lx5329qesrd4aPGWxM9z2C0esqUrGm7vIJSty/MiBHVjCqXvprrhwULH3m4+oie7jdUTihsc9fi7sjUTDwvrcbiOz2uEK4845PqoBeHGkwxsmujgz;
+        Expires=Sun, 22 Dec 2024 17:09:08 GMT; Path=/; SameSite=None; Secure
+      ratelimit-remaining:
+      - '719'
+      x-ratelimit-remaining-minute:
+      - '719'
+      x-ratelimit-limit-minute:
+      - '720'
       x-ratelimit-remaining-day:
-      - '48588'
+      - '45948'
       x-ratelimit-limit-day:
       - '50000'
       ratelimit-reset:
-      - '27'
-      ratelimit-remaining:
-      - '717'
+      - '52'
       ratelimit-limit:
-      - '720'
-      x-ratelimit-remaining-minute:
-      - '717'
-      x-ratelimit-limit-minute:
       - '720'
       access-control-allow-credentials:
       - 'true'
@@ -49,13 +49,13 @@ http_interactions:
       server:
       - Concierge
       x-kong-upstream-latency:
-      - '3'
+      - '5'
       x-kong-proxy-latency:
-      - '1'
+      - '0'
       via:
       - kong/3.1.1
     body:
       encoding: ASCII-8BIT
       string: '{"response":{"status":"ok","userTier":"developer","total":0,"results":[]}}'
-  recorded_at: Sun, 12 Nov 2023 15:34:33 GMT
+  recorded_at: Sun, 15 Dec 2024 17:09:08 GMT
 recorded_with: VCR 6.1.0

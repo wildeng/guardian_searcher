@@ -15,19 +15,21 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Sun, 15 Dec 2024 17:11:31 GMT
+      - Tue, 17 Dec 2024 21:58:34 GMT
       content-type:
       - application/json
       content-length:
-      - '182'
+      - '385'
       connection:
       - keep-alive
       set-cookie:
-      - AWSALB=4rZixGFFLTd8dWL+4eOl3oVHa6zAXT3GENzCSR3W1ZJAOGKHr1SzVR/RpxD8bq1LOwV/tAao8uZ0yFqujeANEgN9EayP0lRaqA3xMC9MzvisHjkHNMEe2ArmcUGs;
-        Expires=Sun, 22 Dec 2024 17:11:31 GMT; Path=/, AWSALBCORS=4rZixGFFLTd8dWL+4eOl3oVHa6zAXT3GENzCSR3W1ZJAOGKHr1SzVR/RpxD8bq1LOwV/tAao8uZ0yFqujeANEgN9EayP0lRaqA3xMC9MzvisHjkHNMEe2ArmcUGs;
-        Expires=Sun, 22 Dec 2024 17:11:31 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=uS0s8CMtDDeHzWysj1Vx/lYy98sjzwREAO02YxjUSM1YkAfkIzTLyfgrojfPk20tsmbjwTlut8iza3PC0PYwEkdC9RktogKLYiF/ZQrgJYUhCLGOXUY5DylZvi6U;
+        Expires=Tue, 24 Dec 2024 21:58:34 GMT; Path=/, AWSALBCORS=uS0s8CMtDDeHzWysj1Vx/lYy98sjzwREAO02YxjUSM1YkAfkIzTLyfgrojfPk20tsmbjwTlut8iza3PC0PYwEkdC9RktogKLYiF/ZQrgJYUhCLGOXUY5DylZvi6U;
+        Expires=Tue, 24 Dec 2024 21:58:34 GMT; Path=/; SameSite=None; Secure
+      x-ratelimit-limit-day:
+      - '50000'
       ratelimit-reset:
-      - '29'
+      - '26'
       ratelimit-remaining:
       - '718'
       ratelimit-limit:
@@ -37,9 +39,7 @@ http_interactions:
       x-ratelimit-limit-minute:
       - '720'
       x-ratelimit-remaining-day:
-      - '45890'
-      x-ratelimit-limit-day:
-      - '50000'
+      - '46348'
       access-control-allow-credentials:
       - 'true'
       access-control-allow-origin:
@@ -49,13 +49,13 @@ http_interactions:
       server:
       - Concierge
       x-kong-upstream-latency:
-      - '3'
+      - '5'
       x-kong-proxy-latency:
-      - '1'
+      - '0'
       via:
       - kong/3.1.1
     body:
       encoding: ASCII-8BIT
       string: '{"response":{"status":"ok","userTier":"developer","total":1,"results":[{"id":"politics","webTitle":"Politics","webUrl":"https://www.theguardian.com/politics","apiUrl":"https://content.guardianapis.com/politics","editions":[{"id":"politics","webTitle":"Politics","webUrl":"https://www.theguardian.com/politics","apiUrl":"https://content.guardianapis.com/politics","code":"default"}]}]}}'
-  recorded_at: Sun, 15 Dec 2024 17:11:31 GMT
+  recorded_at: Tue, 17 Dec 2024 21:58:34 GMT
 recorded_with: VCR 6.1.0

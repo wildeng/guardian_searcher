@@ -4,19 +4,8 @@ require "json"
 
 module GuardianSearcher
   # The class parses the search results and creates a new
-  # SearchResults object
+  # SearchResults object with an editions variable
   class SectionResult
-    attr_reader :results, :editions
-
-    def initialize(
-      results: nil,
-      editions: nil
-    )
-
-      @results = results
-      @editions = editions
-    end
-
     def self.parse_results(body: nil)
       return unless body
 
