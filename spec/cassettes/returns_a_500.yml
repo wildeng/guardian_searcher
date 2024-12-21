@@ -1,0 +1,32 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://content.guardianapis.com/search?api-key=test&q=test&%7B%3Afrom_date=%3E%22okidoki%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.2.0
+  response:
+    status:
+      code: 500
+      message: Bad Request
+    headers:
+      date:
+      - Thu, 19 Dec 2024 18:39:32 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '83'
+      connection:
+      - keep-alive
+      server:
+      - Concierge
+    body:
+      encoding: UTF-8
+      string: '{"response": {"status": "error", "message": "Internal Server Error"}}'
+  recorded_at: Sun, 15 Dec 2024 17:11:31 GMT
+recorded_with: VCR 6.1.0
+
