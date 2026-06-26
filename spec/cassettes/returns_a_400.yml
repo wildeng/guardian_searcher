@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://content.guardianapis.com/search?api-key=test&q=test&%7B%3Afrom_date=%3E%22okidoki%22%7D
+    uri: https://content.guardianapis.com/search?api-key=test&from-date=okidoki&q=test
     body:
       encoding: US-ASCII
       string: ''
@@ -15,18 +15,43 @@ http_interactions:
       message: Bad Request
     headers:
       date:
-      - Thu, 19 Dec 2024 18:39:32 GMT
+      - Fri, 26 Jun 2026 15:47:55 GMT
       content-type:
       - application/json
       content-length:
-      - '83'
+      - '198'
       connection:
       - keep-alive
+      set-cookie:
+      - AWSALB=73aiXdksX8cC7R0ta7Nnz7fXDlOkNFfHu6FXn2c8Ug+gezXZCcdJ0Gt4ja7unyhToKJkwt03n5GHqqC11gAkfDTYcpEgg8793+q/ilI2u3P8AMDA8YOy3OJSTm5G;
+        Expires=Fri, 03 Jul 2026 15:47:55 GMT; Path=/, AWSALBCORS=73aiXdksX8cC7R0ta7Nnz7fXDlOkNFfHu6FXn2c8Ug+gezXZCcdJ0Gt4ja7unyhToKJkwt03n5GHqqC11gAkfDTYcpEgg8793+q/ilI2u3P8AMDA8YOy3OJSTm5G;
+        Expires=Fri, 03 Jul 2026 15:47:55 GMT; Path=/; SameSite=None; Secure
+      ratelimit-limit:
+      - '720'
+      ratelimit-remaining:
+      - '636'
+      x-ratelimit-remaining-minute:
+      - '636'
+      x-ratelimit-limit-minute:
+      - '720'
+      x-ratelimit-remaining-day:
+      - '16063'
+      x-ratelimit-limit-day:
+      - '50000'
+      ratelimit-reset:
+      - '5'
+      access-control-allow-credentials:
+      - true, true
+      access-control-allow-origin:
+      - "*, *"
+      cache-control:
+      - max-age=0
       server:
       - Concierge
     body:
-      encoding: UTF-8
-      string: '{"response": {"status": "error", "message": "Invalid query parameters"}}'
-  recorded_at: Sun, 15 Dec 2024 17:11:31 GMT
+      encoding: ASCII-8BIT
+      string: '{"response":{"status":"error","message":"Dates must be an ISO8601 date
+        or datetime (e.g. 2010-07-20 or 2010-07-20T10:00:00+05:00). Remember to URL-encode
+        the ''+'' if you provide a timezone offset."}}'
+  recorded_at: Fri, 26 Jun 2026 15:47:55 GMT
 recorded_with: VCR 6.1.0
-

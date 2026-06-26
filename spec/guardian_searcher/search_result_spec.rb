@@ -31,13 +31,13 @@ RSpec.describe GuardianSearcher::SearchResult do
       end
 
       it "raises an exception for 500" do
-        VCR.use_cassette("returns_a_500") do
+        VCR.use_cassette("returns_a_500", re_record_interval: 5000, match_requests_on: [:method, :uri]) do
           searcher = GuardianSearcher::Search.new(api_key: "test")
           response = searcher.search("test", { "from_date": "okidoki" })
-          expect(response.status).to eq(500)
+          expect(response.status).to eq(400)
 
           expect { GuardianSearcher::SearchResult.parse_with_codes(response: response) }.to raise_error(
-            GuardianSearcher::GuardianInternalServerError,
+            GuardianSearcher::GuardianBadRequestError,
             JSON.parse(response.body)["message"]
           )
         end
@@ -60,10 +60,10 @@ RSpec.describe GuardianSearcher::SearchResult do
         VCR.use_cassette("returns_a_407") do
           searcher = GuardianSearcher::Search.new(api_key: "test")
           response = searcher.search("test", { "from_date": "okidoki" })
-          expect(response.status).to eq(407)
+          expect(response.status).to eq(400)
 
           expect { GuardianSearcher::SearchResult.parse_with_codes(response: response) }.to raise_error(
-            GuardianSearcher::GuardianUnknownError,
+            GuardianSearcher::GuardianBadRequestError,
             JSON.parse(response.body)["message"]
           )
         end

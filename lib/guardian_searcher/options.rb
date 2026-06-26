@@ -29,6 +29,7 @@ module GuardianSearcher
         valid_option?(key)
         opt += "&#{map_option(key)}=#{value}"
       end
+      return opt
     end
 
     def valid_option?(option)

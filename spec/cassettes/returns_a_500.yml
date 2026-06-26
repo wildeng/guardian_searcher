@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://content.guardianapis.com/search?api-key=test&q=test&%7B%3Afrom_date=%3E%22okidoki%22%7D
+    uri: https://content.guardianapis.com/search?api-key=test&from-date=okidoki&q=test
     body:
       encoding: US-ASCII
       string: ''
@@ -11,22 +11,47 @@ http_interactions:
       - Faraday v2.2.0
   response:
     status:
-      code: 500
+      code: 400
       message: Bad Request
     headers:
       date:
-      - Thu, 19 Dec 2024 18:39:32 GMT
+      - Fri, 26 Jun 2026 15:47:55 GMT
       content-type:
       - application/json
       content-length:
-      - '83'
+      - '198'
       connection:
       - keep-alive
+      set-cookie:
+      - AWSALB=SmVgwhePIlvC7C/6aIuMrGntZ0rv3PMaADYE4MiRintNsxS8F+8J+4/8lp4H/7i37qgQOLauhn6J+p/kLdbg5b6u1UiEimDrOq0FJupZJALcTqSq4hk3M9OM07fy;
+        Expires=Fri, 03 Jul 2026 15:47:55 GMT; Path=/, AWSALBCORS=SmVgwhePIlvC7C/6aIuMrGntZ0rv3PMaADYE4MiRintNsxS8F+8J+4/8lp4H/7i37qgQOLauhn6J+p/kLdbg5b6u1UiEimDrOq0FJupZJALcTqSq4hk3M9OM07fy;
+        Expires=Fri, 03 Jul 2026 15:47:55 GMT; Path=/; SameSite=None; Secure
+      x-ratelimit-remaining-minute:
+      - '637'
+      x-ratelimit-limit-minute:
+      - '720'
+      x-ratelimit-remaining-day:
+      - '17846'
+      x-ratelimit-limit-day:
+      - '50000'
+      ratelimit-reset:
+      - '5'
+      ratelimit-remaining:
+      - '637'
+      ratelimit-limit:
+      - '720'
+      access-control-allow-credentials:
+      - true, true
+      access-control-allow-origin:
+      - "*, *"
+      cache-control:
+      - max-age=0
       server:
       - Concierge
     body:
-      encoding: UTF-8
-      string: '{"response": {"status": "error", "message": "Internal Server Error"}}'
-  recorded_at: Sun, 15 Dec 2024 17:11:31 GMT
+      encoding: ASCII-8BIT
+      string: '{"response":{"status":"error","message":"Dates must be an ISO8601 date
+        or datetime (e.g. 2010-07-20 or 2010-07-20T10:00:00+05:00). Remember to URL-encode
+        the ''+'' if you provide a timezone offset."}}'
+  recorded_at: Fri, 26 Jun 2026 15:47:55 GMT
 recorded_with: VCR 6.1.0
-

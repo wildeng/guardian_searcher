@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe GuardianSearcher::Options do
-  let(:valid_params) { { from_date: "2022-10-01", page_size: 10 } }
+  let(:valid_params) { { from_date: "2022-10-01", to_date: "2023-10-11",page_size: 10, page: "test" } }
   subject { described_class.new(valid_params) }
 
   describe "#initialize" do
