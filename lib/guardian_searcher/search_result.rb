@@ -14,7 +14,6 @@ module GuardianSearcher
       start: nil,
       editions: nil
     )
-
       @current_page = current_page
       @results = results
       @page_size = page_size

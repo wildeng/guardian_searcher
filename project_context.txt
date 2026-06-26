@@ -1,0 +1,2249 @@
+### PROJECT CONTEXT: guardian_searcher} ###
+
+####################
+FILE: .github/workflows/gem-test.yml
+####################
+---
+name: Guardian Searcher gem test suite
+run-name: ${{ github.actor }} is running the test suite
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: ['2.7', '3.0', '3.1', '3.3']
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Ruby ${{ matrix.ruby-version }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+      - name: Install dependencies
+        run: bundle install
+      - name: Run tests
+        run: bundle exec rake spec
+
+
+
+
+####################
+FILE: .rubocop.yml
+####################
+AllCops:
+  TargetRubyVersion: 2.7
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Layout/LineLength:
+  Max: 120
+
+
+####################
+FILE: CHANGELOG.md
+####################
+## [Unreleased]
+- Parse results and return an exception based on the Guardian API response
+
+## [0.1.0] - 2022-10-01
+
+- Initial release
+
+## [0.1.1] - 2022-10-01
+
+- Fix dependency warnings
+
+## [0.1.2] - 2022-10-04
+
+- Moved options parse in their Options class
+- Updated readme
+
+## [0.1.3] - 2022-10-23
+
+- Added Content class
+- Added Helpers classes ( Generator & Util)
+- Added some additional methods to Base class - search tags and editons endpoints
+- Improved code coverage (Happy Paths only for now)
+
+
+####################
+FILE: CODE_OF_CONDUCT.md
+####################
+# Contributor Covenant Code of Conduct
+
+## Our Pledge
+
+We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
+
+We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.
+
+## Our Standards
+
+Examples of behavior that contributes to a positive environment for our community include:
+
+* Demonstrating empathy and kindness toward other people
+* Being respectful of differing opinions, viewpoints, and experiences
+* Giving and gracefully accepting constructive feedback
+* Accepting responsibility and apologizing to those affected by our mistakes, and learning from the experience
+* Focusing on what is best not just for us as individuals, but for the overall community
+
+Examples of unacceptable behavior include:
+
+* The use of sexualized language or imagery, and sexual attention or
+  advances of any kind
+* Trolling, insulting or derogatory comments, and personal or political attacks
+* Public or private harassment
+* Publishing others' private information, such as a physical or email
+  address, without their explicit permission
+* Other conduct which could reasonably be considered inappropriate in a
+  professional setting
+
+## Enforcement Responsibilities
+
+Community leaders are responsible for clarifying and enforcing our standards of acceptable behavior and will take appropriate and fair corrective action in response to any behavior that they deem inappropriate, threatening, offensive, or harmful.
+
+Community leaders have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, and will communicate reasons for moderation decisions when appropriate.
+
+## Scope
+
+This Code of Conduct applies within all community spaces, and also applies when an individual is officially representing the community in public spaces. Examples of representing our community include using an official e-mail address, posting via an official social media account, or acting as an appointed representative at an online or offline event.
+
+## Enforcement
+
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at TODO: Write your email address. All complaints will be reviewed and investigated promptly and fairly.
+
+All community leaders are obligated to respect the privacy and security of the reporter of any incident.
+
+## Enforcement Guidelines
+
+Community leaders will follow these Community Impact Guidelines in determining the consequences for any action they deem in violation of this Code of Conduct:
+
+### 1. Correction
+
+**Community Impact**: Use of inappropriate language or other behavior deemed unprofessional or unwelcome in the community.
+
+**Consequence**: A private, written warning from community leaders, providing clarity around the nature of the violation and an explanation of why the behavior was inappropriate. A public apology may be requested.
+
+### 2. Warning
+
+**Community Impact**: A violation through a single incident or series of actions.
+
+**Consequence**: A warning with consequences for continued behavior. No interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, for a specified period of time. This includes avoiding interactions in community spaces as well as external channels like social media. Violating these terms may lead to a temporary or permanent ban.
+
+### 3. Temporary Ban
+
+**Community Impact**: A serious violation of community standards, including sustained inappropriate behavior.
+
+**Consequence**: A temporary ban from any sort of interaction or public communication with the community for a specified period of time. No public or private interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, is allowed during this period. Violating these terms may lead to a permanent ban.
+
+### 4. Permanent Ban
+
+**Community Impact**: Demonstrating a pattern of violation of community standards, including sustained inappropriate behavior,  harassment of an individual, or aggression toward or disparagement of classes of individuals.
+
+**Consequence**: A permanent ban from any sort of public interaction within the community.
+
+## Attribution
+
+This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 2.0,
+available at https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.
+
+Community Impact Guidelines were inspired by [Mozilla's code of conduct enforcement ladder](https://github.com/mozilla/diversity).
+
+[homepage]: https://www.contributor-covenant.org
+
+For answers to common questions about this code of conduct, see the FAQ at
+https://www.contributor-covenant.org/faq. Translations are available at https://www.contributor-covenant.org/translations.
+
+
+####################
+FILE: README.md
+####################
+# GuardianSearcher
+
+[![Gem Version](https://badge.fury.io/rb/guardian_searcher.svg)](https://badge.fury.io/rb/guardian_searcher)
+
+This is a work in progress, and its status is currently an alpha version. Tests needs to be implemented and the code is not optimal.
+The goal of this project is to provide a Ruby wrapper to query the Guardian Api and to experiment with some programming techniques.
+
+Documentation of TheGuardian API is [Here](https://open-platform.theguardian.com/documentation/)
+
+If you wanna try it you need to have an API key and use it as an environment variable.
+
+```bash
+  export guardian_api_key = "<your_api_key"
+```
+## Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'guardian_searcher'
+```
+
+And then execute:
+
+    $ bundle install
+
+Or install it yourself as:
+
+    $ gem install guardian_searcher
+
+## Usage
+
+```ruby
+  # To include the gem in your code
+  require 'guardian_searcher'
+
+  # To initialise the gem
+  searcher = GuardianSearcher::Search.new(api_key: <your-api-key>)
+
+  # Simplest usage
+  results = searcher.search('your keyword') 
+```
+
+There are some supported option that will be mapped to the api query and these are in the Options
+class
+
+```ruby
+{
+  from_date: "from-date",
+  to_date: "to-date",
+  page_size: "page-size",
+  page: "page"
+}
+```
+
+In this way your search could become something like
+
+```ruby
+results = searcher.search('your keyword', { from_date: '2022-10-01', page_size: 10 })
+```
+
+If you add something unsupported it will throw an `OptionsNotSupportedError`
+
+The results of the search can be used as they are, a Farady response object or you can parse - remember to check for the response code first - them using `GuardianSearcher::SearchResult` in the following way:
+
+```ruby
+response_body = searcher.search('your keyword', { from_date: '2022-10-01', page_size: 10 }).body
+results = GuardianSearcher::SearchResult.parse_results(body: response_body)
+```
+This will return a `SearchResult` object which the following attributes:
+
+```ruby
+@current_page
+@results # an array with all the search results
+@page_size # paging size
+@pages # number of pages
+@start # starting page
+```
+
+However if you want the gem to take care of the response codes and use its built in errors just use
+
+```ruby
+response = searcher.search('your keyword', { from_date: '2022-10-01', page_size: 10 })
+results = GuardianSearcher::SearchResult.parse_with_codes(response)
+```
+
+This will return a `SearchResult` object or one of the following errors
+
+```ruby
+GuardianUnauthorizedError   # when a 401 is returned
+GuardianBadRequestError     # when a 400 is returned
+GuardianInternalServerError # when a 500 is returned
+GuardianUnknownError        # when an error code is not among the above ones
+```
+
+Of interest the structure of a single element of the results array, which is an Hash array similar to this
+
+```ruby
+{"id"=>"football/2022/sep/23/player-mutiny-exposes-deeper-issues-within-spanish-womens-football",
+    "type"=>"article",
+    "sectionId"=>"football",
+    "sectionName"=>"Football",
+    "webPublicationDate"=>"2022-09-23T19:20:09Z",
+    "webTitle"=>"Player mutiny exposes deeper issues within Spanish women’s football | Sid Lowe",
+    "webUrl"=>"https://www.theguardian.com/football/2022/sep/23/player-mutiny-exposes-deeper-issues-within-spanish-womens-football",
+    "apiUrl"=>"https://content.guardianapis.com/football/2022/sep/23/player-mutiny-exposes-deeper-issues-within-spanish-womens-football",
+    "isHosted"=>false,
+    "pillarId"=>"pillar/sport",
+    "pillarName"=>"Sport"}
+```
+At this point you can use the `SearchResult` object as it is or you could convert it to an Array of `Content` objects in the following way:
+```ruby
+generator = GuardianSearcher::Helpers::Generator.new
+# results is the SearchResult object created before which has an attribute
+# called results. Not a great name choice but sorry about that
+contents = generator.generate(results.results, "GuardianSearcher::Content")
+```
+
+Each element of the `contents` Array will be an instance of the `Content` class, with a number of attributes that depends on the returned results i.e. that
+if an element of the results attribute is something like:
+```ruby
+{"id"=>"football/2022/jun/27/football-transfer-rumours-chelsea-to-sign-matthijs-de-ligt-from-juventus",
+    "type"=>"article",
+    "sectionId"=>"football",
+    "sectionName"=>"Football",
+    "webPublicationDate"=>"2022-06-27T08:42:20Z",
+    "webTitle"=>"Football transfer rumours: Chelsea to sign Matthijs de Ligt from Juventus? ",
+    "webUrl"=>"https://www.theguardian.com/football/2022/jun/27/football-transfer-rumours-chelsea-to-sign-matthijs-de-ligt-from-juventus",
+    "apiUrl"=>"https://content.guardianapis.com/football/2022/jun/27/football-transfer-rumours-chelsea-to-sign-matthijs-de-ligt-from-juventus",
+    "isHosted"=>false,
+    "pillarId"=>"pillar/sport",
+    "pillarName"=>"Sport"}
+```
+One element of the `contents` array will be something like:
+
+```ruby
+<GuardianSearcher::Content:0x0000000150b7fe70
+  @api_url="https://content.guardianapis.com/football/2022/jun/27/football-transfer-rumours-chelsea-to-sign-matthijs-de-ligt-from-juventus",
+  @id="football/2022/jun/27/football-transfer-rumours-chelsea-to-sign-matthijs-de-ligt-from-juventus",
+  @is_hosted=false,
+  @pillar_id="pillar/sport",
+  @pillar_name="Sport",
+  @section_id="football",
+  @section_name="Football",
+  @type="article",
+  @web_publication_date="2022-06-27T08:42:20Z",
+  @web_title="Football transfer rumours: Chelsea to sign Matthijs de Ligt from Juventus? ",
+  @web_url="https://www.theguardian.com/football/2022/jun/27/football-transfer-rumours-chelsea-to-sign-matthijs-de-ligt-from-juventus">
+```
+
+## Development
+
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/guardian_searcher. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/guardian_searcher/blob/master/CODE_OF_CONDUCT.md).
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+## Code of Conduct
+
+Everyone interacting in the GuardianSearcher project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/guardian_searcher/blob/master/CODE_OF_CONDUCT.md).
+
+
+####################
+FILE: coverage/.last_run.json
+####################
+{
+  "result": {
+    "line": 97.65
+  }
+}
+
+
+####################
+FILE: coverage/.resultset.json
+####################
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/alain.mauri/code/guardian_searcher/lib/guardian_searcher.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/lib/guardian_searcher/base.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          17,
+          null,
+          15,
+          null,
+          null,
+          null,
+          1,
+          9,
+          8,
+          null,
+          null,
+          1,
+          2,
+          2,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          13,
+          null,
+          null,
+          1,
+          2,
+          null,
+          null,
+          1,
+          9,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          13,
+          12,
+          null,
+          null,
+          1,
+          13,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/lib/guardian_searcher/helpers/util.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          9,
+          null,
+          7,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/lib/guardian_searcher/helpers/generator.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/lib/guardian_searcher/content.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          2,
+          6,
+          6,
+          6,
+          6,
+          null,
+          null,
+          6,
+          6,
+          null,
+          null,
+          6,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/lib/guardian_searcher/search.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          1,
+          0,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/lib/guardian_searcher/search_result.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          null,
+          null,
+          1,
+          5,
+          null,
+          5,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          2,
+          null,
+          2,
+          2,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/lib/guardian_searcher/section_result.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/lib/guardian_searcher/options.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          0,
+          null,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          13,
+          13,
+          null,
+          13,
+          null,
+          null,
+          1,
+          13,
+          null,
+          4,
+          4,
+          4,
+          3,
+          null,
+          null,
+          null,
+          1,
+          4,
+          null,
+          null,
+          1,
+          3,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/spec/guardian_searcher/base_spec.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          1,
+          2,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          2,
+          3,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/spec/guardian_searcher/content_spec.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/spec/guardian_searcher/helpers/generator_spec.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          4,
+          4,
+          null,
+          null,
+          2,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/spec/guardian_searcher/helpers/util_spec.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          4,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/spec/guardian_searcher/search_result_spec.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          4,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/spec/guardian_searcher_spec.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          2,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          2,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/alain.mauri/code/guardian_searcher/spec/section_result_spec.rb": {
+        "lines": [
+          null,
+          null,
+          1,
+          1,
+          1,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1734803915
+  }
+}
+
+
+####################
+FILE: guardian_searcher.gemspec
+####################
+# frozen_string_literal: true
+
+require_relative "lib/guardian_searcher/version"
+
+Gem::Specification.new do |spec|
+  spec.name          = "guardian_searcher"
+  spec.version       = GuardianSearcher::VERSION
+  spec.authors       = "Alain Mauri"
+  spec.email         = "wildeng@hotmail.com"
+
+  spec.summary       = "A wrapper to search articles from The Guardian, using its open API.
+    You need to register and get your api key to properly use this gem.
+    It uses Faraday to make the API calls and has some classes that should help in formatting
+    the results as easy to manage Ruby object."
+  spec.homepage      = "https://alainmauri.eu"
+  spec.license       = "MIT"
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
+
+  spec.metadata["homepage_uri"] = "https://github.com/wildeng/guardian_searcher"
+  spec.metadata["source_code_uri"] = "https://github.com/wildeng/guardian_searcher"
+  spec.metadata["changelog_uri"] = "https://github.com/wildeng/guardian_searcher/blob/main/CHANGELOG.md"
+
+  # Specify which files should be added to the gem when it is released.
+  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
+  spec.files = Dir.chdir(File.expand_path(__dir__)) do
+    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{\A(?:test|spec|features)/}) }
+  end
+  spec.bindir        = "exe"
+  spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
+  spec.require_paths = ["lib"]
+
+  # Uncomment to register a new dependency of your gem
+  # spec.add_dependency "example-gem", "~> 1.0"
+  spec.add_dependency "faraday", "~> 2.2"
+
+  spec.add_development_dependency "byebug", "~> 11"
+  spec.add_development_dependency "guard", "~> 2.18"
+  spec.add_development_dependency "guard-bundler", "~> 3.0"
+  spec.add_development_dependency "guard-rspec", "~> 4.7"
+  spec.add_development_dependency "simplecov", "~> 0.21"
+  spec.add_development_dependency "vcr", "~> 6.1"
+  # For more information and examples about making a new gem, checkout our
+  # guide at: https://bundler.io/guides/creating_gem.html
+end
+
+
+####################
+FILE: lib/guardian_searcher/base.rb
+####################
+# frozen_string_literal: true
+
+module GuardianSearcher
+  # Class that handles the basic functionality for the Guardian Reader gem
+  class Base
+    include Faraday
+
+    attr_reader :api_key
+
+    def initialize(api_key: nil)
+      raise GuardianApyKeyError unless api_key
+
+      @api_key = api_key
+    end
+    
+    # Options needs to be passed following Guardian API docs
+    def search(query, options = {})
+      url = search_uri + query_string(query, options)
+      Faraday.get(url)
+    end
+
+    def search_sections(query, options = {})
+      url = sections_uri + query_string(query, options)
+      Faraday.get(url)
+    end
+
+    def search_tags(query, options = {})
+      url = tags_uri + query_string(query, options)
+      Faraday.get(url)
+    end
+
+    def search_editions(query, options = {})
+      url = editions_uri + query_string(query, options)
+      Faraday.get(url)
+    end
+
+    private
+
+    def base_uri
+      "https://content.guardianapis.com"
+    end
+
+    def sections_uri
+      "#{base_uri}/sections"
+    end
+
+    def search_uri
+      "#{base_uri}/search"
+    end
+
+    def tags_uri
+      "#{base_uri}/tags"
+    end
+
+    def editions_uri
+      "#{base_uri}/editions"
+    end
+
+    def query_string(q, options = {})
+      opt = build_options(options)
+      "?q=#{q}&#{opt}&api-key=#{@api_key}"
+    end
+
+    def build_options(options)
+      Options.new(options).build_options
+    end
+  end
+end
+
+
+####################
+FILE: lib/guardian_searcher/content.rb
+####################
+# frozen_string_literal: true
+
+module GuardianSearcher
+  class Content
+    include GuardianSearcher::Helpers::Util
+    def initialize(attributes)
+      attributes.each do |key, attribute_value|
+        attr_name = key
+        attr_name = snakecase(key) unless key.is_a? Symbol
+        self.class.send(:define_method, "#{attr_name}=".to_sym) do |value|
+          instance_variable_set("@#{attr_name}", value)
+        end
+
+        self.class.send(:define_method, attr_name.to_sym) do
+          instance_variable_get("@#{attr_name}")
+        end
+
+        send("#{attr_name}=".to_sym, attribute_value)
+      end
+    end
+  end
+end
+
+
+####################
+FILE: lib/guardian_searcher/helpers/generator.rb
+####################
+# frozen_string_literal: true
+
+module GuardianSearcher
+  module Helpers
+    # The class helps generating an array of object from the passed parameters
+    # It can be used to generate e.g. an array of Content objects, each one
+    # initialised with the data of a single results Hash coming from the Guardian
+    # API response
+    class Generator
+      def generate(results, klass)
+        content = []
+        results.each do |result|
+          content << Object.const_get(klass).new(result)
+        end
+        content
+      end
+    end
+  end
+end
+
+
+####################
+FILE: lib/guardian_searcher/helpers/util.rb
+####################
+# frozen_string_literal: true
+
+module GuardianSearcher
+  module Helpers
+    module Util
+      # this method comes from the facets library
+      # I took it from there because it was easier for
+      # what I have in mind
+      #
+      # original here https://github.com/rubyworks/facets
+      # docs here https://www.rubydoc.info/github/rubyworks/facets/String:snakecase
+      def snakecase(key)
+        return unless key.is_a? String
+
+        key.gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
+           .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+           .tr("-", "_")
+           .gsub(/\s/, "_")
+           .gsub(/__+/, "_")
+           .downcase
+      end
+    end
+  end
+end
+
+
+####################
+FILE: lib/guardian_searcher/options.rb
+####################
+# frozen_string_literal: true
+
+module GuardianSearcher
+  # the class maps the options passed to the ones needed
+  # by the Guardian API for searching
+  class Options < Hash
+    def method_missing(method_name, *args, &blk)
+      return options.[](method_name, &blk) if @options.key?(method_name)
+
+      super(method_name, *args, &blk)
+    end
+
+    def respond_to_missing?(method_name, *args)
+      @options.key?(method_name) || super(method_name, *args)
+    end
+
+    def initialize(options)
+      super
+      raise OptionsNotHashError unless options.is_a?(Hash)
+
+      @options = options
+    end
+
+    def build_options
+      return {} if options.empty?
+
+      opt = ""
+      options.each do |key, value|
+        valid_option?(key)
+        opt += "&#{map_option(key)}=#{value}"
+      end
+    end
+
+    def valid_option?(option)
+      raise OptionsNotSupportedError unless %i[from_date to_date page_size page].include?(option)
+    end
+
+    def map_option(key)
+      {
+        from_date: "from-date",
+        to_date: "to-date",
+        page_size: "page-size",
+        page: "page"
+      }[key]
+    end
+
+    private
+
+    attr_accessor :options
+  end
+end
+
+
+####################
+FILE: lib/guardian_searcher/search.rb
+####################
+# frozen_string_literal: true
+
+module GuardianSearcher
+  class Search < GuardianSearcher::Base
+    def self.search_articles(q, options = {})
+      searcher = GuardianSearcher::Search.new(api_key: ENV["guardian_api_key"])
+      searcher.search(q, options)
+    end
+
+    def self.search_sections(q, options = {})
+      searcher = GuardianSearcher::Search.new(api_key: ENV["guardian_api_key"])
+      searcher.search_sections(q, options)
+    end
+  end
+end
+
+
+####################
+FILE: lib/guardian_searcher/search_result.rb
+####################
+# frozen_string_literal: true
+
+require "json"
+
+module GuardianSearcher
+  class SearchResult
+    attr_reader :results, :start, :page_size, :pages, :current_page, :editions
+
+    def initialize(
+      current_page: nil,
+      results: nil,
+      page_size: nil,
+      pages: nil,
+      start: nil,
+      editions: nil
+    )
+
+      @current_page = current_page
+      @results = results
+      @page_size = page_size
+      @pages = pages
+      @start = start
+      @editions = editions
+    end
+
+    def self.parse_with_codes(response: nil)
+      raise GuardianSearcher::GuardianSearcherUndefinedResponse unless response
+
+      case response.status
+      when 200
+        parse_results(body: response.body)
+      when 400
+        message = JSON.parse(response.body)["message"]
+        raise GuardianSearcher::GuardianBadRequestError, message
+      when 401
+        message = JSON.parse(response.body)["message"]
+        raise GuardianSearcher::GuardianUnauthorizedError, message
+      when 500
+        message = JSON.parse(response.body)["message"]
+        raise GuardianSearcher::GuardianInternalServerError, message
+      else
+        raise GuardianSearcher::GuardianUnknownError, "Unknown error, check Faraday response"
+      end
+    end
+
+    def self.parse_results(body:)
+      return unless body
+
+      body = JSON.parse(body)
+      response = body["response"]
+      GuardianSearcher::SearchResult.new(
+        current_page: response["currentPage"],
+        results: response["results"],
+        page_size: response["pageSize"],
+        pages: response["pages"],
+        start: response["startIndex"]
+      )
+    end
+  end
+end
+
+
+####################
+FILE: lib/guardian_searcher/section_result.rb
+####################
+# frozen_string_literal: true
+
+require "json"
+
+module GuardianSearcher
+  # The class parses the search results and creates a new
+  # SearchResults object with an editions variable
+  class SectionResult
+    def self.parse_results(body: nil)
+      return unless body
+
+      body = JSON.parse(body)
+      response = body["response"]
+      GuardianSearcher::SearchResult.new(
+        results: response["results"],
+        editions: response["results"][0]["editions"]
+      )
+    end
+  end
+end
+
+
+####################
+FILE: lib/guardian_searcher/version.rb
+####################
+# frozen_string_literal: true
+
+module GuardianSearcher
+  VERSION = "0.1.3"
+end
+
+
+####################
+FILE: lib/guardian_searcher.rb
+####################
+# frozen_string_literal: true
+
+require_relative "guardian_searcher/version"
+require "faraday"
+require_relative "guardian_searcher/base"
+require_relative "guardian_searcher/helpers/util"
+require_relative "guardian_searcher/helpers/generator"
+require_relative "guardian_searcher/content"
+require_relative "guardian_searcher/search"
+require_relative "guardian_searcher/search_result"
+require_relative "guardian_searcher/section_result"
+require_relative "guardian_searcher/options"
+
+module GuardianSearcher
+  class Error < StandardError; end
+  class GuardianApyKeyError < StandardError; end
+  class GuardianUnauthorizedError < StandardError; end
+  class GuardianBadRequestError < StandardError; end
+  class GuardianInternalServerError < StandardError; end
+  class GuardianUnknownError < StandardError; end
+  class GuardianSearcherUndefinedResponse < StandardError; end
+  class OptionsNotHashError < StandardError; end
+  class OptionsNotSupportedError < StandardError; end
+end
+
+
+####################
+FILE: spec/cassettes/edition_returns_200.yml
+####################
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://content.guardianapis.com/sections?api-key=test&q=politics&%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.2.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Tue, 17 Dec 2024 21:58:34 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '385'
+      connection:
+      - keep-alive
+      set-cookie:
+      - AWSALB=uS0s8CMtDDeHzWysj1Vx/lYy98sjzwREAO02YxjUSM1YkAfkIzTLyfgrojfPk20tsmbjwTlut8iza3PC0PYwEkdC9RktogKLYiF/ZQrgJYUhCLGOXUY5DylZvi6U;
+        Expires=Tue, 24 Dec 2024 21:58:34 GMT; Path=/, AWSALBCORS=uS0s8CMtDDeHzWysj1Vx/lYy98sjzwREAO02YxjUSM1YkAfkIzTLyfgrojfPk20tsmbjwTlut8iza3PC0PYwEkdC9RktogKLYiF/ZQrgJYUhCLGOXUY5DylZvi6U;
+        Expires=Tue, 24 Dec 2024 21:58:34 GMT; Path=/; SameSite=None; Secure
+      x-ratelimit-limit-day:
+      - '50000'
+      ratelimit-reset:
+      - '26'
+      ratelimit-remaining:
+      - '718'
+      ratelimit-limit:
+      - '720'
+      x-ratelimit-remaining-minute:
+      - '718'
+      x-ratelimit-limit-minute:
+      - '720'
+      x-ratelimit-remaining-day:
+      - '46348'
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - "*"
+      cache-control:
+      - max-age=0
+      server:
+      - Concierge
+      x-kong-upstream-latency:
+      - '5'
+      x-kong-proxy-latency:
+      - '0'
+      via:
+      - kong/3.1.1
+    body:
+      encoding: ASCII-8BIT
+      string: '{"response":{"status":"ok","userTier":"developer","total":1,"results":[{"id":"politics","webTitle":"Politics","webUrl":"https://www.theguardian.com/politics","apiUrl":"https://content.guardianapis.com/politics","editions":[{"id":"politics","webTitle":"Politics","webUrl":"https://www.theguardian.com/politics","apiUrl":"https://content.guardianapis.com/politics","code":"default"}]}]}}'
+  recorded_at: Tue, 17 Dec 2024 21:58:34 GMT
+recorded_with: VCR 6.1.0
+
+
+####################
+FILE: spec/cassettes/editons_returns_a_200.yml
+####################
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://content.guardianapis.com/editions?api-key=test&q=canada&%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.2.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Sun, 15 Dec 2024 17:09:08 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '95'
+      connection:
+      - keep-alive
+      set-cookie:
+      - AWSALB=iOgixABY793Lx5329qesrd4aPGWxM9z2C0esqUrGm7vIJSty/MiBHVjCqXvprrhwULH3m4+oie7jdUTihsc9fi7sjUTDwvrcbiOz2uEK4845PqoBeHGkwxsmujgz;
+        Expires=Sun, 22 Dec 2024 17:09:08 GMT; Path=/, AWSALBCORS=iOgixABY793Lx5329qesrd4aPGWxM9z2C0esqUrGm7vIJSty/MiBHVjCqXvprrhwULH3m4+oie7jdUTihsc9fi7sjUTDwvrcbiOz2uEK4845PqoBeHGkwxsmujgz;
+        Expires=Sun, 22 Dec 2024 17:09:08 GMT; Path=/; SameSite=None; Secure
+      ratelimit-remaining:
+      - '719'
+      x-ratelimit-remaining-minute:
+      - '719'
+      x-ratelimit-limit-minute:
+      - '720'
+      x-ratelimit-remaining-day:
+      - '45948'
+      x-ratelimit-limit-day:
+      - '50000'
+      ratelimit-reset:
+      - '52'
+      ratelimit-limit:
+      - '720'
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - "*"
+      cache-control:
+      - max-age=0
+      server:
+      - Concierge
+      x-kong-upstream-latency:
+      - '5'
+      x-kong-proxy-latency:
+      - '0'
+      via:
+      - kong/3.1.1
+    body:
+      encoding: ASCII-8BIT
+      string: '{"response":{"status":"ok","userTier":"developer","total":0,"results":[]}}'
+  recorded_at: Sun, 15 Dec 2024 17:09:08 GMT
+recorded_with: VCR 6.1.0
+
+
+####################
+FILE: spec/cassettes/returns_a_200.yml
+####################
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://content.guardianapis.com/search?api-key=test&q=politics&%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.2.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Sun, 15 Dec 2024 17:11:31 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '1310'
+      connection:
+      - keep-alive
+      set-cookie:
+      - AWSALB=WuxROf3FIEvwHLWvaWvtae5LBLEkGBfiaxMEl6+lsTAGAqMwQXJy4C+/6ViKWGTDXbyb8pgHewfgzhOIZ4+gz7iqhhZXqhMxs1mRph8kKzEKbHD9sKxpk9j0x3Ri;
+        Expires=Sun, 22 Dec 2024 17:11:31 GMT; Path=/, AWSALBCORS=WuxROf3FIEvwHLWvaWvtae5LBLEkGBfiaxMEl6+lsTAGAqMwQXJy4C+/6ViKWGTDXbyb8pgHewfgzhOIZ4+gz7iqhhZXqhMxs1mRph8kKzEKbHD9sKxpk9j0x3Ri;
+        Expires=Sun, 22 Dec 2024 17:11:31 GMT; Path=/; SameSite=None; Secure
+      ratelimit-remaining:
+      - '719'
+      x-ratelimit-remaining-minute:
+      - '719'
+      x-ratelimit-limit-minute:
+      - '720'
+      x-ratelimit-remaining-day:
+      - '45945'
+      x-ratelimit-limit-day:
+      - '50000'
+      ratelimit-reset:
+      - '29'
+      ratelimit-limit:
+      - '720'
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - "*"
+      cache-control:
+      - max-age=0
+      server:
+      - Concierge
+      x-kong-upstream-latency:
+      - '40'
+      x-kong-proxy-latency:
+      - '0'
+      via:
+      - kong/3.1.1
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJyZXNwb25zZSI6eyJzdGF0dXMiOiJvayIsInVzZXJUaWVyIjoiZGV2ZWxvcGVyIiwidG90YWwiOjE5MTg4MSwic3RhcnRJbmRleCI6MSwicGFnZVNpemUiOjEwLCJjdXJyZW50UGFnZSI6MSwicGFnZXMiOjE5MTg5LCJvcmRlckJ5IjoicmVsZXZhbmNlIiwicmVzdWx0cyI6W3siaWQiOiJwb2xpdGljcy8yMDI0L2RlYy8wOC9oZXJlcy1hLXdheS10by1tYWtlLXBvbGl0aWNzLW1vcmUtZXF1YWwiLCJ0eXBlIjoiYXJ0aWNsZSIsInNlY3Rpb25JZCI6InBvbGl0aWNzIiwic2VjdGlvbk5hbWUiOiJQb2xpdGljcyIsIndlYlB1YmxpY2F0aW9uRGF0ZSI6IjIwMjQtMTItMDhUMTc6MTU6MTlaIiwid2ViVGl0bGUiOiJIZXJl4oCZcyBhIHdheSB0byBtYWtlIHBvbGl0aWNzIG1vcmUgZXF1YWwgfCBCcmllZiBsZXR0ZXJzICIsIndlYlVybCI6Imh0dHBzOi8vd3d3LnRoZWd1YXJkaWFuLmNvbS9wb2xpdGljcy8yMDI0L2RlYy8wOC9oZXJlcy1hLXdheS10by1tYWtlLXBvbGl0aWNzLW1vcmUtZXF1YWwiLCJhcGlVcmwiOiJodHRwczovL2NvbnRlbnQuZ3VhcmRpYW5hcGlzLmNvbS9wb2xpdGljcy8yMDI0L2RlYy8wOC9oZXJlcy1hLXdheS10by1tYWtlLXBvbGl0aWNzLW1vcmUtZXF1YWwiLCJpc0hvc3RlZCI6ZmFsc2UsInBpbGxhcklkIjoicGlsbGFyL25ld3MiLCJwaWxsYXJOYW1lIjoiTmV3cyJ9LHsiaWQiOiJib29rcy8yMDI0L29jdC8yMS90aGUtYmlnLWlkZWEtaXMtbm9zdGFsZ2lhLWtpbGxpbmctcG9saXRpY3MiLCJ0eXBlIjoiYXJ0aWNsZSIsInNlY3Rpb25JZCI6ImJvb2tzIiwic2VjdGlvbk5hbWUiOiJCb29rcyIsIndlYlB1YmxpY2F0aW9uRGF0ZSI6IjIwMjQtMTAtMjFUMTE6MzA6MzRaIiwid2ViVGl0bGUiOiJUaGUgYmlnIGlkZWE6IGlzIG5vc3RhbGdpYSBraWxsaW5nIHBvbGl0aWNzPyAiLCJ3ZWJVcmwiOiJodHRwczovL3d3dy50aGVndWFyZGlhbi5jb20vYm9va3MvMjAyNC9vY3QvMjEvdGhlLWJpZy1pZGVhLWlzLW5vc3RhbGdpYS1raWxsaW5nLXBvbGl0aWNzIiwiYXBpVXJsIjoiaHR0cHM6Ly9jb250ZW50Lmd1YXJkaWFuYXBpcy5jb20vYm9va3MvMjAyNC9vY3QvMjEvdGhlLWJpZy1pZGVhLWlzLW5vc3RhbGdpYS1raWxsaW5nLXBvbGl0aWNzIiwiaXNIb3N0ZWQiOmZhbHNlLCJwaWxsYXJJZCI6InBpbGxhci9hcnRzIiwicGlsbGFyTmFtZSI6IkFydHMifSx7ImlkIjoidXMtbmV3cy8yMDI0L2RlYy8wOC9hcmFiLWFtZXJpY2Fucy1wb2xpdGljYWwtcGxhdGZvcm0tdHJ1bXAiLCJ0eXBlIjoiYXJ0aWNsZSIsInNlY3Rpb25JZCI6InVzLW5ld3MiLCJzZWN0aW9uTmFtZSI6IlVTIG5ld3MiLCJ3ZWJQdWJsaWNhdGlvbkRhdGUiOiIyMDI0LTEyLTA4VDE1OjAwOjU2WiIsIndlYlRpdGxlIjoiQXJhYiBBbWVyaWNhbnMgYmVjb21lIHByb21pbmVudCB2b2ljZXMgaW4gVVMgcG9saXRpY3Mg4oCTIHZpYSBUcnVtcCIsIndlYlVybCI6Imh0dHBzOi8vd3d3LnRoZWd1YXJkaWFuLmNvbS91cy1uZXdzLzIwMjQvZGVjLzA4L2FyYWItYW1lcmljYW5zLXBvbGl0aWNhbC1wbGF0Zm9ybS10cnVtcCIsImFwaVVybCI6Imh0dHBzOi8vY29udGVudC5ndWFyZGlhbmFwaXMuY29tL3VzLW5ld3MvMjAyNC9kZWMvMDgvYXJhYi1hbWVyaWNhbnMtcG9saXRpY2FsLXBsYXRmb3JtLXRydW1wIiwiaXNIb3N0ZWQiOmZhbHNlLCJwaWxsYXJJZCI6InBpbGxhci9uZXdzIiwicGlsbGFyTmFtZSI6Ik5ld3MifSx7ImlkIjoiZWR1Y2F0aW9uL25nLWludGVyYWN0aXZlLzIwMjQvc2VwLzA3L2Jlc3QtdWstdW5pdmVyc2l0aWVzLWZvci1wb2xpdGljcy1sZWFndWUtdGFibGUiLCJ0eXBlIjoiaW50ZXJhY3RpdmUiLCJzZWN0aW9uSWQiOiJlZHVjYXRpb24iLCJzZWN0aW9uTmFtZSI6IkVkdWNhdGlvbiIsIndlYlB1YmxpY2F0aW9uRGF0ZSI6IjIwMjQtMDktMDdUMDY6NTc6MjNaIiwid2ViVGl0bGUiOiJCZXN0IFVLIHVuaXZlcnNpdGllcyBmb3IgcG9saXRpY3Mg4oCTIGxlYWd1ZSB0YWJsZSIsIndlYlVybCI6Imh0dHBzOi8vd3d3LnRoZWd1YXJkaWFuLmNvbS9lZHVjYXRpb24vbmctaW50ZXJhY3RpdmUvMjAyNC9zZXAvMDcvYmVzdC11ay11bml2ZXJzaXRpZXMtZm9yLXBvbGl0aWNzLWxlYWd1ZS10YWJsZSIsImFwaVVybCI6Imh0dHBzOi8vY29udGVudC5ndWFyZGlhbmFwaXMuY29tL2VkdWNhdGlvbi9uZy1pbnRlcmFjdGl2ZS8yMDI0L3NlcC8wNy9iZXN0LXVrLXVuaXZlcnNpdGllcy1mb3ItcG9saXRpY3MtbGVhZ3VlLXRhYmxlIiwiaXNIb3N0ZWQiOmZhbHNlLCJwaWxsYXJJZCI6InBpbGxhci9uZXdzIiwicGlsbGFyTmFtZSI6Ik5ld3MifSx7ImlkIjoicG9saXRpY3MvMjAyNC9kZWMvMTEvd2hhdC1sYWJvdXItY2FuLWRvLXRvLWRlZmVhdC10aGUtZmFudGFzeS1wb2xpdGljcy1vZi1wb3B1bGlzbSIsInR5cGUiOiJhcnRpY2xlIiwic2VjdGlvbklkIjoicG9saXRpY3MiLCJzZWN0aW9uTmFtZSI6IlBvbGl0aWNzIiwid2ViUHVibGljYXRpb25EYXRlIjoiMjAyNC0xMi0xMVQxNzo1NzoxNloiLCJ3ZWJUaXRsZSI6IldoYXQgTGFib3VyIGNhbiBkbyB0byBkZWZlYXQgdGhlIGZhbnRhc3kgcG9saXRpY3Mgb2YgcG9wdWxpc20gfCBMZXR0ZXJzIiwid2ViVXJsIjoiaHR0cHM6Ly93d3cudGhlZ3VhcmRpYW4uY29tL3BvbGl0aWNzLzIwMjQvZGVjLzExL3doYXQtbGFib3VyLWNhbi1kby10by1kZWZlYXQtdGhlLWZhbnRhc3ktcG9saXRpY3Mtb2YtcG9wdWxpc20iLCJhcGlVcmwiOiJodHRwczovL2NvbnRlbnQuZ3VhcmRpYW5hcGlzLmNvbS9wb2xpdGljcy8yMDI0L2RlYy8xMS93aGF0LWxhYm91ci1jYW4tZG8tdG8tZGVmZWF0LXRoZS1mYW50YXN5LXBvbGl0aWNzLW9mLXBvcHVsaXNtIiwiaXNIb3N0ZWQiOmZhbHNlLCJwaWxsYXJJZCI6InBpbGxhci9uZXdzIiwicGlsbGFyTmFtZSI6Ik5ld3MifSx7ImlkIjoicG9saXRpY3MvMjAyNC9zZXAvMjIvcG9saXRpY3MtaGF0LXRyaWNrLWNhbnQtYmVhdC1hcnNlbmFsLWF0LWhvbWUiLCJ0eXBlIjoiYXJ0aWNsZSIsInNlY3Rpb25JZCI6InBvbGl0aWNzIiwic2VjdGlvbk5hbWUiOiJQb2xpdGljcyIsIndlYlB1YmxpY2F0aW9uRGF0ZSI6IjIwMjQtMDktMjJUMTc6MDQ6MDVaIiwid2ViVGl0bGUiOiJQb2xpdGljcyBoYXQtdHJpY2sgY2Fu4oCZdCBiZWF0IEFyc2VuYWwgYXQgaG9tZSB8IEJyaWVmIGxldHRlcnMiLCJ3ZWJVcmwiOiJodHRwczovL3d3dy50aGVndWFyZGlhbi5jb20vcG9saXRpY3MvMjAyNC9zZXAvMjIvcG9saXRpY3MtaGF0LXRyaWNrLWNhbnQtYmVhdC1hcnNlbmFsLWF0LWhvbWUiLCJhcGlVcmwiOiJodHRwczovL2NvbnRlbnQuZ3VhcmRpYW5hcGlzLmNvbS9wb2xpdGljcy8yMDI0L3NlcC8yMi9wb2xpdGljcy1oYXQtdHJpY2stY2FudC1iZWF0LWFyc2VuYWwtYXQtaG9tZSIsImlzSG9zdGVkIjpmYWxzZSwicGlsbGFySWQiOiJwaWxsYXIvbmV3cyIsInBpbGxhck5hbWUiOiJOZXdzIn0seyJpZCI6ImNvbW1lbnRpc2ZyZWUvMjAyNC9ub3YvMjAvdGhlLWd1YXJkaWFuLXZpZXctb24tdGhlLXBvbGl0aWNzLW9mLWJ1c2VzLWxhYm91cnMtd2lubmluZy10aWNrZXQiLCJ0eXBlIjoiYXJ0aWNsZSIsInNlY3Rpb25JZCI6ImNvbW1lbnRpc2ZyZWUiLCJzZWN0aW9uTmFtZSI6Ik9waW5pb24iLCJ3ZWJQdWJsaWNhdGlvbkRhdGUiOiIyMDI0LTExLTIwVDE4OjQ0OjUzWiIsIndlYlRpdGxlIjoiVGhlIEd1YXJkaWFuIHZpZXcgb24gdGhlIHBvbGl0aWNzIG9mIGJ1c2VzOiBMYWJvdXLigJlzIHdpbm5pbmcgdGlja2V0IHwgRWRpdG9yaWFsIiwid2ViVXJsIjoiaHR0cHM6Ly93d3cudGhlZ3VhcmRpYW4uY29tL2NvbW1lbnRpc2ZyZWUvMjAyNC9ub3YvMjAvdGhlLWd1YXJkaWFuLXZpZXctb24tdGhlLXBvbGl0aWNzLW9mLWJ1c2VzLWxhYm91cnMtd2lubmluZy10aWNrZXQiLCJhcGlVcmwiOiJodHRwczovL2NvbnRlbnQuZ3VhcmRpYW5hcGlzLmNvbS9jb21tZW50aXNmcmVlLzIwMjQvbm92LzIwL3RoZS1ndWFyZGlhbi12aWV3LW9uLXRoZS1wb2xpdGljcy1vZi1idXNlcy1sYWJvdXJzLXdpbm5pbmctdGlja2V0IiwiaXNIb3N0ZWQiOmZhbHNlLCJwaWxsYXJJZCI6InBpbGxhci9vcGluaW9uIiwicGlsbGFyTmFtZSI6Ik9waW5pb24ifSx7ImlkIjoidXMtbmV3cy8yMDI0L25vdi8wNi90aGUtZXh0cmVtZS1wb2xpdGljcy10aGF0LWRyb3ZlLWRvbmFsZC10cnVtcC10by1hLWRlY2lzaXZlLXZpY3RvcnkiLCJ0eXBlIjoiYXJ0aWNsZSIsInNlY3Rpb25JZCI6InVzLW5ld3MiLCJzZWN0aW9uTmFtZSI6IlVTIG5ld3MiLCJ3ZWJQdWJsaWNhdGlvbkRhdGUiOiIyMDI0LTExLTA2VDE3OjA3OjU2WiIsIndlYlRpdGxlIjoiVGhlIGV4dHJlbWUgcG9saXRpY3MgdGhhdCBkcm92ZSBEb25hbGQgVHJ1bXAgdG8gYSBkZWNpc2l2ZSB2aWN0b3J5IHwgTGV0dGVycyIsIndlYlVybCI6Imh0dHBzOi8vd3d3LnRoZWd1YXJkaWFuLmNvbS91cy1uZXdzLzIwMjQvbm92LzA2L3RoZS1leHRyZW1lLXBvbGl0aWNzLXRoYXQtZHJvdmUtZG9uYWxkLXRydW1wLXRvLWEtZGVjaXNpdmUtdmljdG9yeSIsImFwaVVybCI6Imh0dHBzOi8vY29udGVudC5ndWFyZGlhbmFwaXMuY29tL3VzLW5ld3MvMjAyNC9ub3YvMDYvdGhlLWV4dHJlbWUtcG9saXRpY3MtdGhhdC1kcm92ZS1kb25hbGQtdHJ1bXAtdG8tYS1kZWNpc2l2ZS12aWN0b3J5IiwiaXNIb3N0ZWQiOmZhbHNlLCJwaWxsYXJJZCI6InBpbGxhci9uZXdzIiwicGlsbGFyTmFtZSI6Ik5ld3MifSx7ImlkIjoiY29tbWVudGlzZnJlZS8yMDI0L29jdC8zMS9lbG9uLW11c2stYW4tZXhjZXNzLW9mLWJpbGxpb25haXJlcy1pcy1kZXN0YWJpbGlzaW5nLXBvbGl0aWNzLWp1c3QtYXMtYWNhZGVtaWNzLXByZWRpY3RlZCIsInR5cGUiOiJhcnRpY2xlIiwic2VjdGlvbklkIjoiY29tbWVudGlzZnJlZSIsInNlY3Rpb25OYW1lIjoiT3BpbmlvbiIsIndlYlB1YmxpY2F0aW9uRGF0ZSI6IjIwMjQtMTAtMzFUMTA6MDA6MjZaIiwid2ViVGl0bGUiOiJBbiBleGNlc3Mgb2YgYmlsbGlvbmFpcmVzIGlzIGRlc3RhYmlsaXNpbmcgcG9saXRpY3Mg4oCTIGp1c3QgYXMgYWNhZGVtaWNzIHByZWRpY3RlZCIsIndlYlVybCI6Imh0dHBzOi8vd3d3LnRoZWd1YXJkaWFuLmNvbS9jb21tZW50aXNmcmVlLzIwMjQvb2N0LzMxL2Vsb24tbXVzay1hbi1leGNlc3Mtb2YtYmlsbGlvbmFpcmVzLWlzLWRlc3RhYmlsaXNpbmctcG9saXRpY3MtanVzdC1hcy1hY2FkZW1pY3MtcHJlZGljdGVkIiwiYXBpVXJsIjoiaHR0cHM6Ly9jb250ZW50Lmd1YXJkaWFuYXBpcy5jb20vY29tbWVudGlzZnJlZS8yMDI0L29jdC8zMS9lbG9uLW11c2stYW4tZXhjZXNzLW9mLWJpbGxpb25haXJlcy1pcy1kZXN0YWJpbGlzaW5nLXBvbGl0aWNzLWp1c3QtYXMtYWNhZGVtaWNzLXByZWRpY3RlZCIsImlzSG9zdGVkIjpmYWxzZSwicGlsbGFySWQiOiJwaWxsYXIvb3BpbmlvbiIsInBpbGxhck5hbWUiOiJPcGluaW9uIn0seyJpZCI6InVzLW5ld3MvMjAyNC9vY3QvMTEvaGFycmlzLXRydW1wLWh1cnJpY2FuZS1yZWxpZWYiLCJ0eXBlIjoiYXJ0aWNsZSIsInNlY3Rpb25JZCI6InVzLW5ld3MiLCJzZWN0aW9uTmFtZSI6IlVTIG5ld3MiLCJ3ZWJQdWJsaWNhdGlvbkRhdGUiOiIyMDI0LTEwLTExVDE2OjExOjQwWiIsIndlYlRpdGxlIjoiSGFycmlzIGFjY3VzZXMgVHJ1bXAgb2Yg4oCYcGxheWluZyBwb2xpdGljc+KAmSB3aXRoIGh1cnJpY2FuZSBkaXNhc3RlciByZWxpZWYiLCJ3ZWJVcmwiOiJodHRwczovL3d3dy50aGVndWFyZGlhbi5jb20vdXMtbmV3cy8yMDI0L29jdC8xMS9oYXJyaXMtdHJ1bXAtaHVycmljYW5lLXJlbGllZiIsImFwaVVybCI6Imh0dHBzOi8vY29udGVudC5ndWFyZGlhbmFwaXMuY29tL3VzLW5ld3MvMjAyNC9vY3QvMTEvaGFycmlzLXRydW1wLWh1cnJpY2FuZS1yZWxpZWYiLCJpc0hvc3RlZCI6ZmFsc2UsInBpbGxhcklkIjoicGlsbGFyL25ld3MiLCJwaWxsYXJOYW1lIjoiTmV3cyJ9XX19
+  recorded_at: Sun, 15 Dec 2024 17:11:31 GMT
+recorded_with: VCR 6.1.0
+
+
+####################
+FILE: spec/cassettes/returns_a_400.yml
+####################
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://content.guardianapis.com/search?api-key=test&q=test&%7B%3Afrom_date=%3E%22okidoki%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.2.0
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      date:
+      - Thu, 19 Dec 2024 18:39:32 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '83'
+      connection:
+      - keep-alive
+      server:
+      - Concierge
+    body:
+      encoding: UTF-8
+      string: '{"response": {"status": "error", "message": "Invalid query parameters"}}'
+  recorded_at: Sun, 15 Dec 2024 17:11:31 GMT
+recorded_with: VCR 6.1.0
+
+
+
+####################
+FILE: spec/cassettes/returns_a_401.yml
+####################
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://content.guardianapis.com/search?api-key=xxxtest&q=politics&%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.2.0
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      date:
+      - Sun, 15 Dec 2024 17:11:31 GMT
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '52'
+      connection:
+      - keep-alive
+      set-cookie:
+      - AWSALB=Hng7PNff6CWxAVcMblNWgOc7vGyS9AOSveOyYTv+iFJolQwMqWMyCJgWqFWvZsPH/JcMBix8fXDnp/TdSke3reO3A/cAAtQG5OaTpM+0nP772/sbwmyjBS9fWOUw;
+        Expires=Sun, 22 Dec 2024 17:11:31 GMT; Path=/, AWSALBCORS=Hng7PNff6CWxAVcMblNWgOc7vGyS9AOSveOyYTv+iFJolQwMqWMyCJgWqFWvZsPH/JcMBix8fXDnp/TdSke3reO3A/cAAtQG5OaTpM+0nP772/sbwmyjBS9fWOUw;
+        Expires=Sun, 22 Dec 2024 17:11:31 GMT; Path=/; SameSite=None; Secure
+      x-kong-response-latency:
+      - '2'
+      server:
+      - kong/3.1.1
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "message":"Invalid authentication credentials"
+        }
+  recorded_at: Sun, 15 Dec 2024 17:11:31 GMT
+recorded_with: VCR 6.1.0
+
+
+####################
+FILE: spec/cassettes/returns_a_407.yml
+####################
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://content.guardianapis.com/search?api-key=test&q=test&%7B%3Afrom_date=%3E%22okidoki%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.2.0
+  response:
+    status:
+      code: 407
+      message: Bad Request
+    headers:
+      date:
+      - Thu, 19 Dec 2024 18:39:32 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '83'
+      connection:
+      - keep-alive
+      server:
+      - Concierge
+    body:
+      encoding: UTF-8
+      string: '{"response": {"status": "error", "message": "Internal Server Error"}}'
+  recorded_at: Sun, 15 Dec 2024 17:11:31 GMT
+recorded_with: VCR 6.1.0
+
+
+
+####################
+FILE: spec/cassettes/returns_a_500.yml
+####################
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://content.guardianapis.com/search?api-key=test&q=test&%7B%3Afrom_date=%3E%22okidoki%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.2.0
+  response:
+    status:
+      code: 500
+      message: Bad Request
+    headers:
+      date:
+      - Thu, 19 Dec 2024 18:39:32 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '83'
+      connection:
+      - keep-alive
+      server:
+      - Concierge
+    body:
+      encoding: UTF-8
+      string: '{"response": {"status": "error", "message": "Internal Server Error"}}'
+  recorded_at: Sun, 15 Dec 2024 17:11:31 GMT
+recorded_with: VCR 6.1.0
+
+
+
+####################
+FILE: spec/cassettes/section_returns_a_200.yml
+####################
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://content.guardianapis.com/sections?api-key=test&q=politics&%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.2.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Sun, 15 Dec 2024 17:11:31 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '182'
+      connection:
+      - keep-alive
+      set-cookie:
+      - AWSALB=4rZixGFFLTd8dWL+4eOl3oVHa6zAXT3GENzCSR3W1ZJAOGKHr1SzVR/RpxD8bq1LOwV/tAao8uZ0yFqujeANEgN9EayP0lRaqA3xMC9MzvisHjkHNMEe2ArmcUGs;
+        Expires=Sun, 22 Dec 2024 17:11:31 GMT; Path=/, AWSALBCORS=4rZixGFFLTd8dWL+4eOl3oVHa6zAXT3GENzCSR3W1ZJAOGKHr1SzVR/RpxD8bq1LOwV/tAao8uZ0yFqujeANEgN9EayP0lRaqA3xMC9MzvisHjkHNMEe2ArmcUGs;
+        Expires=Sun, 22 Dec 2024 17:11:31 GMT; Path=/; SameSite=None; Secure
+      ratelimit-reset:
+      - '29'
+      ratelimit-remaining:
+      - '718'
+      ratelimit-limit:
+      - '720'
+      x-ratelimit-remaining-minute:
+      - '718'
+      x-ratelimit-limit-minute:
+      - '720'
+      x-ratelimit-remaining-day:
+      - '45890'
+      x-ratelimit-limit-day:
+      - '50000'
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - "*"
+      cache-control:
+      - max-age=0
+      server:
+      - Concierge
+      x-kong-upstream-latency:
+      - '3'
+      x-kong-proxy-latency:
+      - '1'
+      via:
+      - kong/3.1.1
+    body:
+      encoding: ASCII-8BIT
+      string: '{"response":{"status":"ok","userTier":"developer","total":1,"results":[{"id":"politics","webTitle":"Politics","webUrl":"https://www.theguardian.com/politics","apiUrl":"https://content.guardianapis.com/politics","editions":[{"id":"politics","webTitle":"Politics","webUrl":"https://www.theguardian.com/politics","apiUrl":"https://content.guardianapis.com/politics","code":"default"}]}]}}'
+  recorded_at: Sun, 15 Dec 2024 17:11:31 GMT
+recorded_with: VCR 6.1.0
+
+
+####################
+FILE: spec/cassettes/tags_returns_a_200.yml
+####################
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://content.guardianapis.com/tags?api-key=test&q=football&%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.2.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Sun, 15 Dec 2024 17:11:31 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '795'
+      connection:
+      - keep-alive
+      set-cookie:
+      - AWSALB=Y+f4pDAvWWS3cWrUcUTUZ8oH6j8SHWU0Y6JimF5Y62mfaMnAdpPVi0MZ4ua9oNpLj8HjTamHIu23ihY0EYRGUO0JVUCg98HzuolRx8q6+iNoByD9cc9UVf4BylCi;
+        Expires=Sun, 22 Dec 2024 17:11:31 GMT; Path=/, AWSALBCORS=Y+f4pDAvWWS3cWrUcUTUZ8oH6j8SHWU0Y6JimF5Y62mfaMnAdpPVi0MZ4ua9oNpLj8HjTamHIu23ihY0EYRGUO0JVUCg98HzuolRx8q6+iNoByD9cc9UVf4BylCi;
+        Expires=Sun, 22 Dec 2024 17:11:31 GMT; Path=/; SameSite=None; Secure
+      ratelimit-remaining:
+      - '718'
+      x-ratelimit-remaining-minute:
+      - '718'
+      x-ratelimit-limit-minute:
+      - '720'
+      x-ratelimit-remaining-day:
+      - '45944'
+      x-ratelimit-limit-day:
+      - '50000'
+      ratelimit-reset:
+      - '29'
+      ratelimit-limit:
+      - '720'
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - "*"
+      cache-control:
+      - max-age=0
+      server:
+      - Concierge
+      x-kong-upstream-latency:
+      - '5'
+      x-kong-proxy-latency:
+      - '2'
+      via:
+      - kong/3.1.1
+    body:
+      encoding: ASCII-8BIT
+      string: '{"response":{"status":"ok","userTier":"developer","total":1649,"startIndex":1,"pageSize":10,"currentPage":1,"pages":165,"results":[{"id":"katine/football","type":"keyword","sectionId":"katine","sectionName":"Katine","webTitle":"Football","webUrl":"https://www.theguardian.com/katine/football","apiUrl":"https://content.guardianapis.com/katine/football"},{"id":"football/football","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football","webUrl":"https://www.theguardian.com/football/football","apiUrl":"https://content.guardianapis.com/football/football"},{"id":"sport/college-football","type":"keyword","sectionId":"sport","sectionName":"Sport","webTitle":"College
+        football","webUrl":"https://www.theguardian.com/sport/college-football","apiUrl":"https://content.guardianapis.com/sport/college-football"},{"id":"football/laws-of-football","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Laws
+        of football","webUrl":"https://www.theguardian.com/football/laws-of-football","apiUrl":"https://content.guardianapis.com/football/laws-of-football"},{"id":"football/football-agents","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football
+        agents","webUrl":"https://www.theguardian.com/football/football-agents","apiUrl":"https://content.guardianapis.com/football/football-agents"},{"id":"football/footballinireland","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football
+        in Ireland","webUrl":"https://www.theguardian.com/football/footballinireland","apiUrl":"https://content.guardianapis.com/football/footballinireland"},{"id":"profile/the-secret-footballer","type":"contributor","webTitle":"The
+        Secret Footballer","webUrl":"https://www.theguardian.com/profile/the-secret-footballer","apiUrl":"https://content.guardianapis.com/profile/the-secret-footballer","bio":"<p>The
+        Guardian''s man inside the game lifts the lid on the world of football</p>","bylineImageUrl":"https://static.guim.co.uk/sys-images/Football/Clubs/Club_Home/2011/3/6/1299430801288/The-Secret-Footballer-003.jpg","firstName":"the","lastName":"secretfootballer"},{"id":"football/football-further-blog","type":"blog","sectionId":"football","sectionName":"Football","webTitle":"Football
+        further","webUrl":"https://www.theguardian.com/football/football-further-blog","apiUrl":"https://content.guardianapis.com/football/football-further-blog","description":"Fresh
+        perspectives on tactical trends and football in England and France"},{"id":"profile/spiritoffootball","type":"contributor","webTitle":"Spirit
+        of Football","webUrl":"https://www.theguardian.com/profile/spiritoffootball","apiUrl":"https://content.guardianapis.com/profile/spiritoffootball","firstName":"of","lastName":"spirit"},{"id":"football/series/the-football-mine","type":"series","sectionId":"football","sectionName":"Football","webTitle":"The
+        football mine","webUrl":"https://www.theguardian.com/football/series/the-football-mine","apiUrl":"https://content.guardianapis.com/football/series/the-football-mine","description":"<p>A
+        collection of sports writing by <a href=\"https://www.theguardian.com/profile/richard-foster\">Richard
+        Foster</a></p>"}]}}'
+  recorded_at: Sun, 15 Dec 2024 17:11:31 GMT
+recorded_with: VCR 6.1.0
+
+
+####################
+FILE: spec/guardian_searcher/base_spec.rb
+####################
+# frozen_string_literal: true
+
+RSpec.describe GuardianSearcher::Base do
+  context("when initialize") do
+    it "returns an error if api key is not set" do
+      expect { GuardianSearcher::Search.new }.to raise_error(GuardianSearcher::GuardianApyKeyError)
+    end
+
+    it "sets an api_key variable if api_key is set" do
+      searcher = GuardianSearcher::Search.new(api_key: "test")
+      expect(searcher.api_key).to eq("test")
+    end
+  end
+
+  describe "#search", :vcr do
+    let(:described_class) { GuardianSearcher::Search.new(api_key: "test") }
+    let(:search_term) { "politics" }
+
+    it "returns a 200" do
+      VCR.use_cassette("returns_a_200") do
+        response = described_class.search(search_term)
+        expect(response.status).to eq(200)
+      end
+    end
+
+    it "returns a 401 if unauthorised" do
+      VCR.use_cassette("returns_a_401") do
+        searcher = GuardianSearcher::Search.new(api_key: "xxxtest")
+        response = searcher.search(search_term)
+        expect(response.status).to eq(401)
+      end
+    end
+  end
+
+  describe "#search_sections", :vcr do
+    let(:described_class) { GuardianSearcher::Search.new(api_key: "test") }
+    let(:search_term) { "politics" }
+
+    it "returns a 200" do
+      VCR.use_cassette("section_returns_a_200") do
+        response = described_class.search_sections(search_term)
+        expect(response.status).to eq(200)
+      end
+    end
+  end
+
+  describe "#search_tags", :vcr do
+    let(:described_class) { GuardianSearcher::Search.new(api_key: "test") }
+    let(:search_term) { "football" }
+
+    it "returns a 200" do
+      VCR.use_cassette("tags_returns_a_200") do
+        response = described_class.search_tags(search_term)
+        expect(response.status).to eq(200)
+      end
+    end
+  end
+
+  describe "#search_editions", :vcr do
+    let(:described_class) { GuardianSearcher::Search.new(api_key: "test") }
+    let(:search_term) { "canada" }
+
+    it "returns a 200" do
+      VCR.use_cassette("editons_returns_a_200") do
+        response = described_class.search_editions(search_term)
+        expect(response.status).to eq(200)
+      end
+    end
+  end
+end
+
+
+####################
+FILE: spec/guardian_searcher/content_spec.rb
+####################
+# frozen_string_literal: true
+
+RSpec.describe GuardianSearcher::Content do
+  context "when initialize" do
+    let(:string_keys) do
+      { "foo" => "foo", "bar" => "bar", "foobar" => "foobar" }
+    end
+
+    let(:sym_keys) do
+      { "foo": "foo", "bar": "bar", "foobar": "foobar" }
+    end
+    it "creates the expected attributes from strings" do
+      content = GuardianSearcher::Content.new(string_keys)
+      expect(content.foo).to eq("foo")
+      expect(content.bar).to eq("bar")
+      expect(content.foobar).to eq("foobar")
+    end
+
+    it "creates the expected attributes from symbols" do
+      content = GuardianSearcher::Content.new(sym_keys)
+      expect(content.foo).to eq("foo")
+      expect(content.bar).to eq("bar")
+      expect(content.foobar).to eq("foobar")
+    end
+  end
+end
+
+
+####################
+FILE: spec/guardian_searcher/helpers/generator_spec.rb
+####################
+# frozen_string_literal: true
+
+# frozen_string_literal
+
+RSpec.describe GuardianSearcher::Helpers::Generator do
+  context "when generating a class" do
+    describe "#generate" do
+      class Dummy
+        attr_accessor :foo, :bar
+
+        def initialize(opts = {})
+          @foo = opts[:foo]
+          @bar = opts[:bar]
+        end
+      end
+      let(:described_class) { GuardianSearcher::Helpers::Generator.new }
+
+      it "generates the expected class" do
+        params = [{ foo: "foo", bar: "bar" }]
+        dummy_class = described_class.generate(params, "Dummy").first
+        expect(dummy_class.is_a?(Dummy)).to eq(true)
+        expect(dummy_class.foo).to eq("foo")
+        expect(dummy_class.bar).to eq("bar")
+      end
+    end
+  end
+end
+
+
+####################
+FILE: spec/guardian_searcher/helpers/util_spec.rb
+####################
+# frozen_string_literal: true
+
+RSpec.describe GuardianSearcher::Helpers::Util do
+  describe "#snakecase" do
+    class Dummy
+      include GuardianSearcher::Helpers::Util
+    end
+
+    let(:dummy) { Dummy.new }
+    it "converts to snakecase from CamelCase" do
+      expect(dummy.snakecase("CamelCase")).to eq("camel_case")
+      expect(dummy.snakecase("camelCase")).to eq("camel_case")
+      expect(dummy.snakecase("camelCase_case")).to eq("camel_case_case")
+    end
+
+    it "does not change to snake_case" do
+      expect(dummy.snakecase("snake_case")).to eq("snake_case")
+    end
+
+    it "ignores the key if not a string" do
+      expect(dummy.snakecase(1)).to eq(nil)
+      expect(dummy.snakecase(:tesCamel)).to eq(nil)
+    end
+  end
+end
+
+
+####################
+FILE: spec/guardian_searcher/search_result_spec.rb
+####################
+# frozen_string_literal: true
+
+require "spec_helper"
+
+RSpec.describe GuardianSearcher::SearchResult do
+  context "when searching", :vcr do
+    let(:search_term) { "politics" }
+    describe ".parse_results" do
+      it "returns a SearchResult object" do
+        VCR.use_cassette("returns_a_200") do
+          searcher = GuardianSearcher::Search.new(api_key: "test")
+          response = searcher.search(search_term)
+          expect(response.status).to eq(200)
+
+          search_result = GuardianSearcher::SearchResult.parse_results(body: response.body)
+          expect(search_result.is_a?(GuardianSearcher::SearchResult)).to eq(true)
+        end
+      end
+    end
+
+    describe ".parse_with_codes" do
+      it "returns a Search object" do
+        VCR.use_cassette("returns_a_200") do
+          searcher = GuardianSearcher::Search.new(api_key: "test")
+          response = searcher.search(search_term)
+          expect(response.status).to eq(200)
+
+          search_result = GuardianSearcher::SearchResult.parse_with_codes(response: response)
+          expect(search_result.is_a?(GuardianSearcher::SearchResult)).to eq(true)
+        end
+      end
+
+      it "raises an exception for 500" do
+        VCR.use_cassette("returns_a_500") do
+          searcher = GuardianSearcher::Search.new(api_key: "test")
+          response = searcher.search("test", { "from_date": "okidoki" })
+          expect(response.status).to eq(500)
+
+          expect { GuardianSearcher::SearchResult.parse_with_codes(response: response) }.to raise_error(
+            GuardianSearcher::GuardianInternalServerError,
+            JSON.parse(response.body)["message"]
+          )
+        end
+      end
+
+      it "raises an exception for 400" do
+        VCR.use_cassette("returns_a_400") do
+          searcher = GuardianSearcher::Search.new(api_key: "test")
+          response = searcher.search("test", { "from_date": "okidoki" })
+          expect(response.status).to eq(400)
+
+          expect { GuardianSearcher::SearchResult.parse_with_codes(response: response) }.to raise_error(
+            GuardianSearcher::GuardianBadRequestError,
+            JSON.parse(response.body)["message"]
+          )
+        end
+      end
+
+      it "raises an exception for unknown" do
+        VCR.use_cassette("returns_a_407") do
+          searcher = GuardianSearcher::Search.new(api_key: "test")
+          response = searcher.search("test", { "from_date": "okidoki" })
+          expect(response.status).to eq(407)
+
+          expect { GuardianSearcher::SearchResult.parse_with_codes(response: response) }.to raise_error(
+            GuardianSearcher::GuardianUnknownError,
+            JSON.parse(response.body)["message"]
+          )
+        end
+      end
+
+      it "raises an exception for 401" do
+        VCR.use_cassette("returns_a_401") do
+          searcher = GuardianSearcher::Search.new(api_key: "xxxtest")
+          response = searcher.search(search_term)
+          expect(response.status).to eq(401)
+
+          expect { GuardianSearcher::SearchResult.parse_with_codes(response: response) }.to raise_error(
+            GuardianSearcher::GuardianUnauthorizedError,
+            JSON.parse(response.body)["message"]
+          )
+        end
+      end
+    end
+  end
+end
+
+
+####################
+FILE: spec/guardian_searcher_spec.rb
+####################
+# frozen_string_literal: true
+
+RSpec.describe GuardianSearcher do
+  it "has a version number" do
+    expect(GuardianSearcher::VERSION).not_to be nil
+  end
+
+  it "returns an error if api key is not set" do
+    expect { GuardianSearcher::Search.new }.to raise_error(GuardianSearcher::GuardianApyKeyError)
+  end
+
+  it "sets an api_key variable if api_key is set" do
+    searcher = GuardianSearcher::Search.new(api_key: "test")
+    expect(searcher.api_key).to eq("test")
+  end
+
+  it "rejects not valid options" do
+    searcher = GuardianSearcher::Search.new(api_key: "test")
+    expect { searcher.search("football", { "test": "pippo" }) }.to raise_error(
+      GuardianSearcher::OptionsNotSupportedError
+    )
+  end
+end
+
+
+####################
+FILE: spec/section_result_spec.rb
+####################
+# frozen_string_literal: true
+
+RSpec.describe(GuardianSearcher::SectionResult) do
+  context "when searching", :vcr do
+    describe(".parse_result") do
+      let(:search_edition_term) { "politics" }
+      it("returns a search result object") do
+        VCR.use_cassette("edition_returns_200") do
+          searcher = GuardianSearcher::Search.new(api_key: "test")
+          response = searcher.search_sections(search_edition_term)
+          expect(response.status).to eq(200)
+          search_result = GuardianSearcher::SectionResult.parse_results(body: response.body)
+          expect(search_result.is_a?(GuardianSearcher::SearchResult)).to eq(true)
+        end
+      end
+    end
+  end
+end
+
+
+####################
+FILE: spec/spec_helper.rb
+####################
+# frozen_string_literal: true
+
+require "simplecov"
+SimpleCov.start
+require "guardian_searcher"
+require "vcr"
+require "byebug"
+
+VCR.configure do |c|
+  c.cassette_library_dir = "spec/cassettes"
+  c.hook_into :faraday
+end
+
+RSpec.configure do |config|
+  # Enable flags like --only-failures and --next-failure
+  config.example_status_persistence_file_path = ".rspec_status"
+
+  # Disable RSpec exposing methods globally on `Module` and `main`
+  config.disable_monkey_patching!
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+end
+
