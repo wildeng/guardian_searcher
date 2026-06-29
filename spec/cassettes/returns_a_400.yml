@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://content.guardianapis.com/editions?q=canada&%7B%7D
+    uri: https://content.guardianapis.com/search?from-date=okidoki&q=test
     body:
       encoding: US-ASCII
       string: ''
@@ -13,45 +13,47 @@ http_interactions:
       - test
   response:
     status:
-      code: 200
-      message: OK
+      code: 400
+      message: Bad Request
     headers:
       date:
       - Sun, 28 Jun 2026 09:32:26 GMT
       content-type:
       - application/json
       content-length:
-      - '74'
+      - '198'
       connection:
       - keep-alive
       set-cookie:
-      - AWSALB=99/vgGdU2nMmidRLmPSsK0xzJPIoKSEKjSIIEiFA88xDq+8FkaOD+LqPKXC5qazYEgMJLFh5uG9DDnE6DFGyS2fPTLVK4c0FHlLWRONUAXQqzCfgz1sQCdL7oqgq;
-        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/, AWSALBCORS=99/vgGdU2nMmidRLmPSsK0xzJPIoKSEKjSIIEiFA88xDq+8FkaOD+LqPKXC5qazYEgMJLFh5uG9DDnE6DFGyS2fPTLVK4c0FHlLWRONUAXQqzCfgz1sQCdL7oqgq;
+      - AWSALB=WMjBFkB9bH3IkxlzhZgfNg7bMY34OzB+2Fs7wUIiZ09XlwTE+J3Z4YzNE3TXS2Y30PQkoJD462s8r4IPuOSKh5b1qP7QuXFQmCzU1e4EcfP/t1YvQByHIjSUqcB0;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/, AWSALBCORS=WMjBFkB9bH3IkxlzhZgfNg7bMY34OzB+2Fs7wUIiZ09XlwTE+J3Z4YzNE3TXS2Y30PQkoJD462s8r4IPuOSKh5b1qP7QuXFQmCzU1e4EcfP/t1YvQByHIjSUqcB0;
         Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/; SameSite=None; Secure
       ratelimit-reset:
       - '34'
       ratelimit-remaining:
-      - '710'
+      - '709'
       ratelimit-limit:
       - '720'
       x-ratelimit-remaining-minute:
-      - '710'
+      - '709'
       x-ratelimit-limit-minute:
       - '720'
       x-ratelimit-remaining-day:
-      - '29883'
+      - '29882'
       x-ratelimit-limit-day:
       - '50000'
       access-control-allow-credentials:
-      - 'true'
+      - true, true
       access-control-allow-origin:
-      - "*"
+      - "*, *"
       cache-control:
       - max-age=0
       server:
       - Concierge
     body:
       encoding: ASCII-8BIT
-      string: '{"response":{"status":"ok","userTier":"developer","total":0,"results":[]}}'
+      string: '{"response":{"status":"error","message":"Dates must be an ISO8601 date
+        or datetime (e.g. 2010-07-20 or 2010-07-20T10:00:00+05:00). Remember to URL-encode
+        the ''+'' if you provide a timezone offset."}}'
   recorded_at: Sun, 28 Jun 2026 09:32:26 GMT
 recorded_with: VCR 6.1.0

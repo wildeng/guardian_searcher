@@ -2,44 +2,46 @@
 http_interactions:
 - request:
     method: get
-    uri: https://content.guardianapis.com/tags?api-key=test&q=football&%7B%7D
+    uri: https://content.guardianapis.com/tags?q=football&%7B%7D
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
       - Faraday v2.2.0
+      api-key:
+      - test
   response:
     status:
       code: 200
       message: OK
     headers:
       date:
-      - Sun, 12 Nov 2023 15:34:33 GMT
+      - Sun, 28 Jun 2026 09:32:26 GMT
       content-type:
       - application/json
       content-length:
-      - '794'
+      - '3357'
       connection:
       - keep-alive
       set-cookie:
-      - AWSALB=KOLQ/BeU7+tvjZQAIhjQ4oXx90muS91o64CC7+FOn8bNZuVfVrAVGziRs+JmaiXWq2vZiSi+VkAdLdMWTxDomRB6sB1ga0ziWIxdb/l/NBqBocgQh2cuUk8sATed;
-        Expires=Sun, 19 Nov 2023 15:34:33 GMT; Path=/, AWSALBCORS=KOLQ/BeU7+tvjZQAIhjQ4oXx90muS91o64CC7+FOn8bNZuVfVrAVGziRs+JmaiXWq2vZiSi+VkAdLdMWTxDomRB6sB1ga0ziWIxdb/l/NBqBocgQh2cuUk8sATed;
-        Expires=Sun, 19 Nov 2023 15:34:33 GMT; Path=/; SameSite=None; Secure
-      x-ratelimit-remaining-day:
-      - '48589'
-      x-ratelimit-limit-day:
-      - '50000'
+      - AWSALB=l9thhUvfYCdSXcJ2AO/zTF2xvFPbrt4hKQHPMqJJeADRIUMS0IRoMuD8XFEaAyaTnC7NZ9bxJ1GKucgdGFN0oS+RcqVIyBTXcKKT2RAkDSOX1zJYR6l+Ua8V1BJD;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/, AWSALBCORS=l9thhUvfYCdSXcJ2AO/zTF2xvFPbrt4hKQHPMqJJeADRIUMS0IRoMuD8XFEaAyaTnC7NZ9bxJ1GKucgdGFN0oS+RcqVIyBTXcKKT2RAkDSOX1zJYR6l+Ua8V1BJD;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/; SameSite=None; Secure
       ratelimit-reset:
-      - '27'
+      - '34'
       ratelimit-remaining:
-      - '718'
+      - '711'
       ratelimit-limit:
       - '720'
       x-ratelimit-remaining-minute:
-      - '718'
+      - '711'
       x-ratelimit-limit-minute:
       - '720'
+      x-ratelimit-remaining-day:
+      - '29884'
+      x-ratelimit-limit-day:
+      - '50000'
       access-control-allow-credentials:
       - 'true'
       access-control-allow-origin:
@@ -48,26 +50,20 @@ http_interactions:
       - max-age=0
       server:
       - Concierge
-      x-kong-upstream-latency:
-      - '5'
-      x-kong-proxy-latency:
-      - '0'
-      via:
-      - kong/3.1.1
     body:
       encoding: ASCII-8BIT
-      string: '{"response":{"status":"ok","userTier":"developer","total":1603,"startIndex":1,"pageSize":10,"currentPage":1,"pages":161,"results":[{"id":"katine/football","type":"keyword","sectionId":"katine","sectionName":"Katine","webTitle":"Football","webUrl":"https://www.theguardian.com/katine/football","apiUrl":"https://content.guardianapis.com/katine/football"},{"id":"football/football","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football","webUrl":"https://www.theguardian.com/football/football","apiUrl":"https://content.guardianapis.com/football/football"},{"id":"sport/college-football","type":"keyword","sectionId":"sport","sectionName":"Sport","webTitle":"College
-        football","webUrl":"https://www.theguardian.com/sport/college-football","apiUrl":"https://content.guardianapis.com/sport/college-football"},{"id":"football/laws-of-football","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Laws
-        of football","webUrl":"https://www.theguardian.com/football/laws-of-football","apiUrl":"https://content.guardianapis.com/football/laws-of-football"},{"id":"football/football-agents","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football
-        agents","webUrl":"https://www.theguardian.com/football/football-agents","apiUrl":"https://content.guardianapis.com/football/football-agents"},{"id":"football/footballinireland","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football
-        in Ireland","webUrl":"https://www.theguardian.com/football/footballinireland","apiUrl":"https://content.guardianapis.com/football/footballinireland"},{"id":"profile/the-secret-footballer","type":"contributor","webTitle":"The
+      string: '{"response":{"status":"ok","userTier":"developer","total":1743,"startIndex":1,"pageSize":10,"currentPage":1,"pages":175,"results":[{"id":"katine/football","type":"keyword","sectionId":"katine","sectionName":"Katine","webTitle":"Football","webUrl":"https://www.theguardian.com/katine/football","apiUrl":"https://content.guardianapis.com/katine/football","keywordType":"other"},{"id":"football/football","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football","webUrl":"https://www.theguardian.com/football/football","apiUrl":"https://content.guardianapis.com/football/football","keywordType":"other"},{"id":"football/series/the-football-mine","type":"series","sectionId":"football","sectionName":"Football","webTitle":"The
+        football mine","webUrl":"https://www.theguardian.com/football/series/the-football-mine","apiUrl":"https://content.guardianapis.com/football/series/the-football-mine","description":"<p>A
+        collection of sports writing by <a href=\"https://www.theguardian.com/profile/richard-foster\">Richard
+        Foster</a></p>"},{"id":"sport/college-football","type":"keyword","sectionId":"sport","sectionName":"Sport","webTitle":"College
+        football","webUrl":"https://www.theguardian.com/sport/college-football","apiUrl":"https://content.guardianapis.com/sport/college-football","keywordType":"other"},{"id":"football/football-index","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football
+        Index","webUrl":"https://www.theguardian.com/football/football-index","apiUrl":"https://content.guardianapis.com/football/football-index","keywordType":"organisation"},{"id":"football/laws-of-football","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Laws
+        of football","webUrl":"https://www.theguardian.com/football/laws-of-football","apiUrl":"https://content.guardianapis.com/football/laws-of-football","keywordType":"other"},{"id":"football/football-agents","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football
+        agents","webUrl":"https://www.theguardian.com/football/football-agents","apiUrl":"https://content.guardianapis.com/football/football-agents","keywordType":"other"},{"id":"football/footballinireland","type":"keyword","sectionId":"football","sectionName":"Football","webTitle":"Football
+        in Ireland","webUrl":"https://www.theguardian.com/football/footballinireland","apiUrl":"https://content.guardianapis.com/football/footballinireland","keywordType":"other"},{"id":"profile/the-secret-footballer","type":"contributor","webTitle":"The
         Secret Footballer","webUrl":"https://www.theguardian.com/profile/the-secret-footballer","apiUrl":"https://content.guardianapis.com/profile/the-secret-footballer","bio":"<p>The
         Guardian''s man inside the game lifts the lid on the world of football</p>","bylineImageUrl":"https://static.guim.co.uk/sys-images/Football/Clubs/Club_Home/2011/3/6/1299430801288/The-Secret-Footballer-003.jpg","firstName":"the","lastName":"secretfootballer"},{"id":"football/football-further-blog","type":"blog","sectionId":"football","sectionName":"Football","webTitle":"Football
         further","webUrl":"https://www.theguardian.com/football/football-further-blog","apiUrl":"https://content.guardianapis.com/football/football-further-blog","description":"Fresh
-        perspectives on tactical trends and football in England and France"},{"id":"profile/spiritoffootball","type":"contributor","webTitle":"Spirit
-        of Football","webUrl":"https://www.theguardian.com/profile/spiritoffootball","apiUrl":"https://content.guardianapis.com/profile/spiritoffootball","firstName":"of","lastName":"spirit"},{"id":"football/series/the-football-mine","type":"series","sectionId":"football","sectionName":"Football","webTitle":"The
-        football mine","webUrl":"https://www.theguardian.com/football/series/the-football-mine","apiUrl":"https://content.guardianapis.com/football/series/the-football-mine","description":"<p>A
-        collection of sports writing by <a href=\"https://www.theguardian.com/profile/richard-foster\">Richard
-        Foster</a></p>"}]}}'
-  recorded_at: Sun, 12 Nov 2023 15:34:33 GMT
+        perspectives on tactical trends and football in England and France"}]}}'
+  recorded_at: Sun, 28 Jun 2026 09:32:26 GMT
 recorded_with: VCR 6.1.0

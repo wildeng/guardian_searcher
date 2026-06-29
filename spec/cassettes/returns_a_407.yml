@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://content.guardianapis.com/sections?q=politics&%7B%7D
+    uri: https://content.guardianapis.com/search?from-date=okidoki&q=test
     body:
       encoding: US-ASCII
       string: ''
@@ -13,45 +13,47 @@ http_interactions:
       - test
   response:
     status:
-      code: 200
-      message: OK
+      code: 400
+      message: Bad Request
     headers:
       date:
       - Sun, 28 Jun 2026 09:32:26 GMT
       content-type:
       - application/json
       content-length:
-      - '385'
+      - '198'
       connection:
       - keep-alive
       set-cookie:
-      - AWSALB=eWB+rZvIueCrU9URjfjRRMMJRWsupIdTYw67vnzCYCA4jihkXo2eZG44S6xKKHsb4CYzgTTw9YB7TGJ6iQ4lr7fUFsOoUzg6aKybfHYVaTzST73DUDg+BD2rwPmF;
-        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/, AWSALBCORS=eWB+rZvIueCrU9URjfjRRMMJRWsupIdTYw67vnzCYCA4jihkXo2eZG44S6xKKHsb4CYzgTTw9YB7TGJ6iQ4lr7fUFsOoUzg6aKybfHYVaTzST73DUDg+BD2rwPmF;
+      - AWSALB=z8NqhYtWCc76Jp5KnkKcrfVuTTkadKaBBd77cZUGUjtNON1VYF3+Jk+C2TLd/un07LyTOMG97664KJvDjfUi2Q5mzULx16ovws3gCmgobdAIEFnfQFPhPH2qDrdF;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/, AWSALBCORS=z8NqhYtWCc76Jp5KnkKcrfVuTTkadKaBBd77cZUGUjtNON1VYF3+Jk+C2TLd/un07LyTOMG97664KJvDjfUi2Q5mzULx16ovws3gCmgobdAIEFnfQFPhPH2qDrdF;
         Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/; SameSite=None; Secure
       x-ratelimit-remaining-minute:
-      - '709'
+      - '708'
       x-ratelimit-limit-minute:
       - '720'
       x-ratelimit-remaining-day:
-      - '32504'
+      - '32503'
       x-ratelimit-limit-day:
       - '50000'
       ratelimit-reset:
       - '34'
       ratelimit-remaining:
-      - '709'
+      - '708'
       ratelimit-limit:
       - '720'
       access-control-allow-credentials:
-      - 'true'
+      - true, true
       access-control-allow-origin:
-      - "*"
+      - "*, *"
       cache-control:
       - max-age=0
       server:
       - Concierge
     body:
       encoding: ASCII-8BIT
-      string: '{"response":{"status":"ok","userTier":"developer","total":1,"results":[{"id":"politics","webTitle":"Politics","webUrl":"https://www.theguardian.com/politics","apiUrl":"https://content.guardianapis.com/politics","editions":[{"id":"politics","webTitle":"Politics","webUrl":"https://www.theguardian.com/politics","apiUrl":"https://content.guardianapis.com/politics","code":"default"}]}]}}'
+      string: '{"response":{"status":"error","message":"Dates must be an ISO8601 date
+        or datetime (e.g. 2010-07-20 or 2010-07-20T10:00:00+05:00). Remember to URL-encode
+        the ''+'' if you provide a timezone offset."}}'
   recorded_at: Sun, 28 Jun 2026 09:32:26 GMT
 recorded_with: VCR 6.1.0

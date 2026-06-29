@@ -4,21 +4,22 @@ require "json"
 
 module GuardianSearcher
   class SearchResult
-    attr_reader :results, :start, :page_size, :pages, :current_page
+    attr_reader :results, :start, :page_size, :pages, :current_page, :editions
 
     def initialize(
       current_page: nil,
       results: nil,
       page_size: nil,
       pages: nil,
-      start: nil
+      start: nil,
+      editions: nil
     )
-
       @current_page = current_page
       @results = results
       @page_size = page_size
       @pages = pages
       @start = start
+      @editions = editions
     end
 
     def self.parse_with_codes(response: nil)

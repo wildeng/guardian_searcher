@@ -25,23 +25,23 @@ http_interactions:
       connection:
       - keep-alive
       set-cookie:
-      - AWSALB=eWB+rZvIueCrU9URjfjRRMMJRWsupIdTYw67vnzCYCA4jihkXo2eZG44S6xKKHsb4CYzgTTw9YB7TGJ6iQ4lr7fUFsOoUzg6aKybfHYVaTzST73DUDg+BD2rwPmF;
-        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/, AWSALBCORS=eWB+rZvIueCrU9URjfjRRMMJRWsupIdTYw67vnzCYCA4jihkXo2eZG44S6xKKHsb4CYzgTTw9YB7TGJ6iQ4lr7fUFsOoUzg6aKybfHYVaTzST73DUDg+BD2rwPmF;
+      - AWSALB=mWM/VV0LWT6F2vcYIO5vVcyj7dXeD8ue0pE5I/hJvnbK2fJcWCVggAe7zLRs1ckq2FOfHXsN2EUjVob0s5piiQAiib3MgjWHJZ9P2dQDBluNkzK4kUpqbvXkUGsH;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/, AWSALBCORS=mWM/VV0LWT6F2vcYIO5vVcyj7dXeD8ue0pE5I/hJvnbK2fJcWCVggAe7zLRs1ckq2FOfHXsN2EUjVob0s5piiQAiib3MgjWHJZ9P2dQDBluNkzK4kUpqbvXkUGsH;
         Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/; SameSite=None; Secure
-      x-ratelimit-remaining-minute:
-      - '709'
-      x-ratelimit-limit-minute:
-      - '720'
-      x-ratelimit-remaining-day:
-      - '32504'
-      x-ratelimit-limit-day:
-      - '50000'
       ratelimit-reset:
       - '34'
       ratelimit-remaining:
-      - '709'
+      - '708'
       ratelimit-limit:
       - '720'
+      x-ratelimit-remaining-minute:
+      - '708'
+      x-ratelimit-limit-minute:
+      - '720'
+      x-ratelimit-remaining-day:
+      - '29881'
+      x-ratelimit-limit-day:
+      - '50000'
       access-control-allow-credentials:
       - 'true'
       access-control-allow-origin:
