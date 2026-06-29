@@ -62,10 +62,9 @@ RSpec.describe GuardianSearcher::Options do
       expect(built_string).to include("&page-size=10")
     end
 
-    it "returns an empty hash (representation) if options are empty" do
-      # Verifies the guard clause for empty options [3]
+    it "returns an empty string if options are empty" do
       empty_opts = described_class.new({})
-      expect(empty_opts.build_options).to eq({})
+      expect(empty_opts.build_options).to eq("")
     end
   end
 end

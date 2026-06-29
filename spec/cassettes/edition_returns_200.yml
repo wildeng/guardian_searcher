@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: https://content.guardianapis.com/sections?q=politics&%7B%7D
+    uri: https://content.guardianapis.com/sections?q=politics
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Faraday v2.2.0
+      - Faraday v2.14.1
       api-key:
       - test
   response:
@@ -17,41 +17,43 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Sun, 28 Jun 2026 09:32:26 GMT
+      - Mon, 29 Jun 2026 07:04:47 GMT
       content-type:
       - application/json
       content-length:
-      - '385'
+      - '182'
       connection:
       - keep-alive
       set-cookie:
-      - AWSALB=mWM/VV0LWT6F2vcYIO5vVcyj7dXeD8ue0pE5I/hJvnbK2fJcWCVggAe7zLRs1ckq2FOfHXsN2EUjVob0s5piiQAiib3MgjWHJZ9P2dQDBluNkzK4kUpqbvXkUGsH;
-        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/, AWSALBCORS=mWM/VV0LWT6F2vcYIO5vVcyj7dXeD8ue0pE5I/hJvnbK2fJcWCVggAe7zLRs1ckq2FOfHXsN2EUjVob0s5piiQAiib3MgjWHJZ9P2dQDBluNkzK4kUpqbvXkUGsH;
-        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/; SameSite=None; Secure
-      ratelimit-reset:
-      - '34'
-      ratelimit-remaining:
-      - '708'
-      ratelimit-limit:
-      - '720'
+      - AWSALB=EIV+FcHcMHr9vJSn8l0ShufwEO00mjDaddzR5WWs4rRXayLCIt5dFGKLIz+I3ocTMqCjYfuIU1RkWBLcIRyYUIfGdWmDD2U75kxQLdeMePg61ZcHEcw9aT03KaTc;
+        Expires=Mon, 06 Jul 2026 07:04:47 GMT; Path=/, AWSALBCORS=EIV+FcHcMHr9vJSn8l0ShufwEO00mjDaddzR5WWs4rRXayLCIt5dFGKLIz+I3ocTMqCjYfuIU1RkWBLcIRyYUIfGdWmDD2U75kxQLdeMePg61ZcHEcw9aT03KaTc;
+        Expires=Mon, 06 Jul 2026 07:04:47 GMT; Path=/; SameSite=None; Secure
       x-ratelimit-remaining-minute:
-      - '708'
+      - '681'
       x-ratelimit-limit-minute:
       - '720'
       x-ratelimit-remaining-day:
-      - '29881'
+      - '37299'
       x-ratelimit-limit-day:
       - '50000'
+      ratelimit-reset:
+      - '13'
+      ratelimit-remaining:
+      - '681'
+      ratelimit-limit:
+      - '720'
       access-control-allow-credentials:
       - 'true'
       access-control-allow-origin:
       - "*"
       cache-control:
       - max-age=0
+      content-encoding:
+      - gzip
       server:
       - Concierge
     body:
       encoding: ASCII-8BIT
       string: '{"response":{"status":"ok","userTier":"developer","total":1,"results":[{"id":"politics","webTitle":"Politics","webUrl":"https://www.theguardian.com/politics","apiUrl":"https://content.guardianapis.com/politics","editions":[{"id":"politics","webTitle":"Politics","webUrl":"https://www.theguardian.com/politics","apiUrl":"https://content.guardianapis.com/politics","code":"default"}]}]}}'
-  recorded_at: Sun, 28 Jun 2026 09:32:26 GMT
+  recorded_at: Mon, 29 Jun 2026 07:04:47 GMT
 recorded_with: VCR 6.1.0

@@ -9,6 +9,9 @@ require_relative "guardian_searcher/content"
 require_relative "guardian_searcher/search"
 require_relative "guardian_searcher/search_result"
 require_relative "guardian_searcher/section_result"
+require_relative "guardian_searcher/article_result"
+require_relative "guardian_searcher/tag_result"
+require_relative "guardian_searcher/edition_result"
 require_relative "guardian_searcher/options"
 
 module GuardianSearcher

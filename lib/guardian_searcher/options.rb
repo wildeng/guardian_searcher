@@ -22,14 +22,14 @@ module GuardianSearcher
     end
 
     def build_options
-      return {} if options.empty?
+      return "" if options.empty?
 
       opt = ""
       options.each do |key, value|
         valid_option?(key)
-        opt += "&#{map_option(key)}=#{value}"
+        opt += "&#{map_option(key)}=#{URI.encode_www_form_component(value.to_s)}"
       end
-      return opt
+      opt
     end
 
     def valid_option?(option)

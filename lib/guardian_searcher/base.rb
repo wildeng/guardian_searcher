@@ -34,6 +34,11 @@ module GuardianSearcher
       Faraday.get(url, nil, headers)
     end
 
+    def find_article(id, options = {})
+      url = "#{base_uri}/#{id}#{options_to_query(options)}"
+      Faraday.get(url, nil, headers)
+    end
+
     private
 
     def base_uri
@@ -58,11 +63,18 @@ module GuardianSearcher
 
     def query_string(q, options = {})
       opt = build_options(options)
-      "?q=#{q}&#{opt}"
+      "?q=#{URI.encode_www_form_component(q)}&#{opt}"
     end
 
     def build_options(options)
       Options.new(options).build_options
+    end
+
+    def options_to_query(options)
+      opt = build_options(options)
+      return "" if opt.empty?
+
+      "?#{opt}"
     end
 
     def headers

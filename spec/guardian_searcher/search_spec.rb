@@ -25,6 +25,20 @@ RSpec.describe GuardianSearcher::Search do
     end
   end
 
+  describe ".find_article" do
+    let(:article_id) { "world/2024/jun/28/test-article" }
+
+    it "initializes a new search instance with the ENV key and calls #find_article" do
+      search_instance = instance_double(GuardianSearcher::Search)
+
+      allow(GuardianSearcher::Search).to receive(:new).with(api_key: api_key).and_return(search_instance)
+
+      expect(search_instance).to receive(:find_article).with(article_id, options)
+
+      GuardianSearcher::Search.find_article(article_id, options)
+    end
+  end
+
   describe ".search_sections" do
     it "initializes a new search instance with the ENV key and calls #search_sections" do
       search_instance = instance_double(GuardianSearcher::Search)

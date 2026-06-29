@@ -11,5 +11,10 @@ module GuardianSearcher
       searcher = GuardianSearcher::Search.new(api_key: ENV["guardian_api_key"])
       searcher.search_sections(q, options)
     end
+
+    def self.find_article(id, options = {})
+      searcher = GuardianSearcher::Search.new(api_key: ENV["guardian_api_key"])
+      searcher.find_article(id, options)
+    end
   end
 end

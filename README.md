@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/guardian_searcher.svg)](https://badge.fury.io/rb/guardian_searcher)
 
-This is a work in progress, and its status is currently an alpha version. Tests needs to be implemented and the code is not optimal.
+This is a work in progress, and its status is currently an alpha version.
 The goal of this project is to provide a Ruby wrapper to query the Guardian Api and to experiment with some programming techniques.
 
 Documentation of TheGuardian API is [Here](https://open-platform.theguardian.com/documentation/)
@@ -12,6 +12,9 @@ If you wanna try it you need to have an API key and use it as an environment var
 ```bash
   export guardian_api_key = "<your_api_key"
 ```
+
+The API key is sent as an HTTP header (not in the URL) to prevent leakage in server logs.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -39,6 +42,9 @@ Or install it yourself as:
 
   # Simplest usage
   results = searcher.search('your keyword') 
+
+  # Or use the class methods (reads API key from ENV)
+  results = GuardianSearcher::Search.search_articles('your keyword')
 ```
 
 There are some supported option that will be mapped to the api query and these are in the Options
@@ -60,6 +66,8 @@ results = searcher.search('your keyword', { from_date: '2022-10-01', page_size: 
 ```
 
 If you add something unsupported it will throw an `OptionsNotSupportedError`
+
+Query values and option values are automatically URL-encoded, so you can safely search for terms with special characters (`&`, `?`, spaces, etc.).
 
 The results of the search can be used as they are, a Farady response object or you can parse - remember to check for the response code first - them using `GuardianSearcher::SearchResult` in the following way:
 
@@ -91,6 +99,40 @@ GuardianUnauthorizedError   # when a 401 is returned
 GuardianBadRequestError     # when a 400 is returned
 GuardianInternalServerError # when a 500 is returned
 GuardianUnknownError        # when an error code is not among the above ones
+```
+
+### Single article lookup
+
+```ruby
+response = searcher.find_article("world/2024/jun/28/some-article")
+article = GuardianSearcher::ArticleResult.parse_with_codes(response: response)
+# => GuardianSearcher::Content with dynamic attributes (id, web_title, section_name, etc.)
+```
+
+The article `id` is the full path from the article's `apiUrl` (e.g. `world/2024/jun/28/some-article`).
+
+### Tags
+
+```ruby
+response = searcher.search_tags("football")
+tags = GuardianSearcher::TagResult.parse_with_codes(response: response)
+# => GuardianSearcher::SearchResult, tags in `.results`
+```
+
+### Editions
+
+```ruby
+response = searcher.search_editions("canada")
+editions = GuardianSearcher::EditionResult.parse_with_codes(response: response)
+# => GuardianSearcher::SearchResult, editions in `.results`
+```
+
+### Sections
+
+```ruby
+response = searcher.search_sections("politics")
+sections = GuardianSearcher::SectionResult.parse_results(body: response.body)
+# => GuardianSearcher::SearchResult, sections in `.results`
 ```
 
 Of interest the structure of a single element of the results array, which is an Hash array similar to this
