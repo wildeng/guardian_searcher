@@ -2,39 +2,39 @@
 http_interactions:
 - request:
     method: get
-    uri: https://content.guardianapis.com/search?api-key=xxxtest&q=politics&%7B%7D
+    uri: https://content.guardianapis.com/search?q=politics&%7B%7D
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
       - Faraday v2.2.0
+      api-key:
+      - xxxtest
   response:
     status:
       code: 401
       message: Unauthorized
     headers:
       date:
-      - Sun, 15 Dec 2024 17:11:31 GMT
+      - Sun, 28 Jun 2026 09:32:26 GMT
       content-type:
       - application/json; charset=utf-8
       content-length:
-      - '52'
+      - '31'
       connection:
       - keep-alive
       set-cookie:
-      - AWSALB=Hng7PNff6CWxAVcMblNWgOc7vGyS9AOSveOyYTv+iFJolQwMqWMyCJgWqFWvZsPH/JcMBix8fXDnp/TdSke3reO3A/cAAtQG5OaTpM+0nP772/sbwmyjBS9fWOUw;
-        Expires=Sun, 22 Dec 2024 17:11:31 GMT; Path=/, AWSALBCORS=Hng7PNff6CWxAVcMblNWgOc7vGyS9AOSveOyYTv+iFJolQwMqWMyCJgWqFWvZsPH/JcMBix8fXDnp/TdSke3reO3A/cAAtQG5OaTpM+0nP772/sbwmyjBS9fWOUw;
-        Expires=Sun, 22 Dec 2024 17:11:31 GMT; Path=/; SameSite=None; Secure
-      x-kong-response-latency:
-      - '2'
-      server:
-      - kong/3.1.1
+      - AWSALB=AX2PhymxeErlqStHIlp0A4fGmxOs6xBuZuFU13I7CwQPQn7RfB7SnA46nHt2eGOFlVjUR7xEu6ipyvPns3uEaKoh/wkxbWgt8M/8F2Kewwxl41vEKOTzN45L77xS;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/, AWSALBCORS=AX2PhymxeErlqStHIlp0A4fGmxOs6xBuZuFU13I7CwQPQn7RfB7SnA46nHt2eGOFlVjUR7xEu6ipyvPns3uEaKoh/wkxbWgt8M/8F2Kewwxl41vEKOTzN45L77xS;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/; SameSite=None; Secure
+      www-authenticate:
+      - Key
     body:
       encoding: UTF-8
       string: |-
         {
-          "message":"Invalid authentication credentials"
+          "message": "Unauthorized"
         }
-  recorded_at: Sun, 15 Dec 2024 17:11:31 GMT
+  recorded_at: Sun, 28 Jun 2026 09:32:26 GMT
 recorded_with: VCR 6.1.0

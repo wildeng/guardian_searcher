@@ -2,44 +2,46 @@
 http_interactions:
 - request:
     method: get
-    uri: https://content.guardianapis.com/editions?api-key=test&q=canada&%7B%7D
+    uri: https://content.guardianapis.com/editions?q=canada&%7B%7D
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
       - Faraday v2.2.0
+      api-key:
+      - test
   response:
     status:
       code: 200
       message: OK
     headers:
       date:
-      - Sun, 15 Dec 2024 17:09:08 GMT
+      - Sun, 28 Jun 2026 09:32:26 GMT
       content-type:
       - application/json
       content-length:
-      - '95'
+      - '74'
       connection:
       - keep-alive
       set-cookie:
-      - AWSALB=iOgixABY793Lx5329qesrd4aPGWxM9z2C0esqUrGm7vIJSty/MiBHVjCqXvprrhwULH3m4+oie7jdUTihsc9fi7sjUTDwvrcbiOz2uEK4845PqoBeHGkwxsmujgz;
-        Expires=Sun, 22 Dec 2024 17:09:08 GMT; Path=/, AWSALBCORS=iOgixABY793Lx5329qesrd4aPGWxM9z2C0esqUrGm7vIJSty/MiBHVjCqXvprrhwULH3m4+oie7jdUTihsc9fi7sjUTDwvrcbiOz2uEK4845PqoBeHGkwxsmujgz;
-        Expires=Sun, 22 Dec 2024 17:09:08 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=99/vgGdU2nMmidRLmPSsK0xzJPIoKSEKjSIIEiFA88xDq+8FkaOD+LqPKXC5qazYEgMJLFh5uG9DDnE6DFGyS2fPTLVK4c0FHlLWRONUAXQqzCfgz1sQCdL7oqgq;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/, AWSALBCORS=99/vgGdU2nMmidRLmPSsK0xzJPIoKSEKjSIIEiFA88xDq+8FkaOD+LqPKXC5qazYEgMJLFh5uG9DDnE6DFGyS2fPTLVK4c0FHlLWRONUAXQqzCfgz1sQCdL7oqgq;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/; SameSite=None; Secure
+      ratelimit-reset:
+      - '34'
       ratelimit-remaining:
-      - '719'
+      - '710'
+      ratelimit-limit:
+      - '720'
       x-ratelimit-remaining-minute:
-      - '719'
+      - '710'
       x-ratelimit-limit-minute:
       - '720'
       x-ratelimit-remaining-day:
-      - '45948'
+      - '29883'
       x-ratelimit-limit-day:
       - '50000'
-      ratelimit-reset:
-      - '52'
-      ratelimit-limit:
-      - '720'
       access-control-allow-credentials:
       - 'true'
       access-control-allow-origin:
@@ -48,14 +50,8 @@ http_interactions:
       - max-age=0
       server:
       - Concierge
-      x-kong-upstream-latency:
-      - '5'
-      x-kong-proxy-latency:
-      - '0'
-      via:
-      - kong/3.1.1
     body:
       encoding: ASCII-8BIT
       string: '{"response":{"status":"ok","userTier":"developer","total":0,"results":[]}}'
-  recorded_at: Sun, 15 Dec 2024 17:09:08 GMT
+  recorded_at: Sun, 28 Jun 2026 09:32:26 GMT
 recorded_with: VCR 6.1.0

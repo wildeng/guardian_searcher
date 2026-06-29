@@ -1,5 +1,6 @@
 ## [Unreleased]
 - Parse results and return an exception based on the Guardian API response
+- Moved API key from URL query string to request header to prevent leakage in logs
 
 ## [0.1.0] - 2022-10-01
 

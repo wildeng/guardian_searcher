@@ -2,44 +2,46 @@
 http_interactions:
 - request:
     method: get
-    uri: https://content.guardianapis.com/sections?api-key=test&q=politics&%7B%7D
+    uri: https://content.guardianapis.com/sections?q=politics&%7B%7D
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
       - Faraday v2.2.0
+      api-key:
+      - test
   response:
     status:
       code: 200
       message: OK
     headers:
       date:
-      - Sun, 15 Dec 2024 17:11:31 GMT
+      - Sun, 28 Jun 2026 09:32:26 GMT
       content-type:
       - application/json
       content-length:
-      - '182'
+      - '385'
       connection:
       - keep-alive
       set-cookie:
-      - AWSALB=4rZixGFFLTd8dWL+4eOl3oVHa6zAXT3GENzCSR3W1ZJAOGKHr1SzVR/RpxD8bq1LOwV/tAao8uZ0yFqujeANEgN9EayP0lRaqA3xMC9MzvisHjkHNMEe2ArmcUGs;
-        Expires=Sun, 22 Dec 2024 17:11:31 GMT; Path=/, AWSALBCORS=4rZixGFFLTd8dWL+4eOl3oVHa6zAXT3GENzCSR3W1ZJAOGKHr1SzVR/RpxD8bq1LOwV/tAao8uZ0yFqujeANEgN9EayP0lRaqA3xMC9MzvisHjkHNMEe2ArmcUGs;
-        Expires=Sun, 22 Dec 2024 17:11:31 GMT; Path=/; SameSite=None; Secure
-      ratelimit-reset:
-      - '29'
-      ratelimit-remaining:
-      - '718'
-      ratelimit-limit:
-      - '720'
+      - AWSALB=eWB+rZvIueCrU9URjfjRRMMJRWsupIdTYw67vnzCYCA4jihkXo2eZG44S6xKKHsb4CYzgTTw9YB7TGJ6iQ4lr7fUFsOoUzg6aKybfHYVaTzST73DUDg+BD2rwPmF;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/, AWSALBCORS=eWB+rZvIueCrU9URjfjRRMMJRWsupIdTYw67vnzCYCA4jihkXo2eZG44S6xKKHsb4CYzgTTw9YB7TGJ6iQ4lr7fUFsOoUzg6aKybfHYVaTzST73DUDg+BD2rwPmF;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/; SameSite=None; Secure
       x-ratelimit-remaining-minute:
-      - '718'
+      - '709'
       x-ratelimit-limit-minute:
       - '720'
       x-ratelimit-remaining-day:
-      - '45890'
+      - '32504'
       x-ratelimit-limit-day:
       - '50000'
+      ratelimit-reset:
+      - '34'
+      ratelimit-remaining:
+      - '709'
+      ratelimit-limit:
+      - '720'
       access-control-allow-credentials:
       - 'true'
       access-control-allow-origin:
@@ -48,14 +50,8 @@ http_interactions:
       - max-age=0
       server:
       - Concierge
-      x-kong-upstream-latency:
-      - '3'
-      x-kong-proxy-latency:
-      - '1'
-      via:
-      - kong/3.1.1
     body:
       encoding: ASCII-8BIT
       string: '{"response":{"status":"ok","userTier":"developer","total":1,"results":[{"id":"politics","webTitle":"Politics","webUrl":"https://www.theguardian.com/politics","apiUrl":"https://content.guardianapis.com/politics","editions":[{"id":"politics","webTitle":"Politics","webUrl":"https://www.theguardian.com/politics","apiUrl":"https://content.guardianapis.com/politics","code":"default"}]}]}}'
-  recorded_at: Sun, 15 Dec 2024 17:11:31 GMT
+  recorded_at: Sun, 28 Jun 2026 09:32:26 GMT
 recorded_with: VCR 6.1.0

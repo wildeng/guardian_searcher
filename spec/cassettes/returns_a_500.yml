@@ -2,20 +2,22 @@
 http_interactions:
 - request:
     method: get
-    uri: https://content.guardianapis.com/search?api-key=test&from-date=okidoki&q=test
+    uri: https://content.guardianapis.com/search?from-date=okidoki&q=test
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
       - Faraday v2.2.0
+      api-key:
+      - test
   response:
     status:
       code: 400
       message: Bad Request
     headers:
       date:
-      - Fri, 26 Jun 2026 15:47:55 GMT
+      - Sun, 28 Jun 2026 09:32:26 GMT
       content-type:
       - application/json
       content-length:
@@ -23,23 +25,23 @@ http_interactions:
       connection:
       - keep-alive
       set-cookie:
-      - AWSALB=SmVgwhePIlvC7C/6aIuMrGntZ0rv3PMaADYE4MiRintNsxS8F+8J+4/8lp4H/7i37qgQOLauhn6J+p/kLdbg5b6u1UiEimDrOq0FJupZJALcTqSq4hk3M9OM07fy;
-        Expires=Fri, 03 Jul 2026 15:47:55 GMT; Path=/, AWSALBCORS=SmVgwhePIlvC7C/6aIuMrGntZ0rv3PMaADYE4MiRintNsxS8F+8J+4/8lp4H/7i37qgQOLauhn6J+p/kLdbg5b6u1UiEimDrOq0FJupZJALcTqSq4hk3M9OM07fy;
-        Expires=Fri, 03 Jul 2026 15:47:55 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=VryRdB2BL0AC6jvdAAGJOMx0eK9Mt3Hk8luhnCr9GIutBVqb4eys25LC+63/wED9NzUklHrTZwBs0IXGvAM03X3iI+QgNzEpJfuP6GvPXW57TtISAuCMrKXFYC/m;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/, AWSALBCORS=VryRdB2BL0AC6jvdAAGJOMx0eK9Mt3Hk8luhnCr9GIutBVqb4eys25LC+63/wED9NzUklHrTZwBs0IXGvAM03X3iI+QgNzEpJfuP6GvPXW57TtISAuCMrKXFYC/m;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/; SameSite=None; Secure
+      ratelimit-limit:
+      - '720'
+      ratelimit-remaining:
+      - '709'
       x-ratelimit-remaining-minute:
-      - '637'
+      - '709'
       x-ratelimit-limit-minute:
       - '720'
       x-ratelimit-remaining-day:
-      - '17846'
+      - '30750'
       x-ratelimit-limit-day:
       - '50000'
       ratelimit-reset:
-      - '5'
-      ratelimit-remaining:
-      - '637'
-      ratelimit-limit:
-      - '720'
+      - '34'
       access-control-allow-credentials:
       - true, true
       access-control-allow-origin:
@@ -53,5 +55,5 @@ http_interactions:
       string: '{"response":{"status":"error","message":"Dates must be an ISO8601 date
         or datetime (e.g. 2010-07-20 or 2010-07-20T10:00:00+05:00). Remember to URL-encode
         the ''+'' if you provide a timezone offset."}}'
-  recorded_at: Fri, 26 Jun 2026 15:47:55 GMT
+  recorded_at: Sun, 28 Jun 2026 09:32:26 GMT
 recorded_with: VCR 6.1.0

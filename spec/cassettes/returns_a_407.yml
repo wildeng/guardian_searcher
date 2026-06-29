@@ -2,20 +2,22 @@
 http_interactions:
 - request:
     method: get
-    uri: https://content.guardianapis.com/search?api-key=test&from-date=okidoki&q=test
+    uri: https://content.guardianapis.com/search?from-date=okidoki&q=test
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
       - Faraday v2.2.0
+      api-key:
+      - test
   response:
     status:
       code: 400
       message: Bad Request
     headers:
       date:
-      - Fri, 26 Jun 2026 15:47:55 GMT
+      - Sun, 28 Jun 2026 09:32:26 GMT
       content-type:
       - application/json
       content-length:
@@ -23,21 +25,21 @@ http_interactions:
       connection:
       - keep-alive
       set-cookie:
-      - AWSALB=xCixM9Y2CU/YbdNXATsFeWWPaT5d6ssQJzzoRVXl5r9Fp1tvfhTJUtqkAosgV3QRrhHPKMhqwIv7bE2QxH2EB+TAN5y+fFW1I9Was0iPm0TUXrvd44c2hm2cfneh;
-        Expires=Fri, 03 Jul 2026 15:47:55 GMT; Path=/, AWSALBCORS=xCixM9Y2CU/YbdNXATsFeWWPaT5d6ssQJzzoRVXl5r9Fp1tvfhTJUtqkAosgV3QRrhHPKMhqwIv7bE2QxH2EB+TAN5y+fFW1I9Was0iPm0TUXrvd44c2hm2cfneh;
-        Expires=Fri, 03 Jul 2026 15:47:55 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=z8NqhYtWCc76Jp5KnkKcrfVuTTkadKaBBd77cZUGUjtNON1VYF3+Jk+C2TLd/un07LyTOMG97664KJvDjfUi2Q5mzULx16ovws3gCmgobdAIEFnfQFPhPH2qDrdF;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/, AWSALBCORS=z8NqhYtWCc76Jp5KnkKcrfVuTTkadKaBBd77cZUGUjtNON1VYF3+Jk+C2TLd/un07LyTOMG97664KJvDjfUi2Q5mzULx16ovws3gCmgobdAIEFnfQFPhPH2qDrdF;
+        Expires=Sun, 05 Jul 2026 09:32:26 GMT; Path=/; SameSite=None; Secure
       x-ratelimit-remaining-minute:
-      - '636'
+      - '708'
       x-ratelimit-limit-minute:
       - '720'
       x-ratelimit-remaining-day:
-      - '17845'
+      - '32503'
       x-ratelimit-limit-day:
       - '50000'
       ratelimit-reset:
-      - '5'
+      - '34'
       ratelimit-remaining:
-      - '636'
+      - '708'
       ratelimit-limit:
       - '720'
       access-control-allow-credentials:
@@ -53,5 +55,5 @@ http_interactions:
       string: '{"response":{"status":"error","message":"Dates must be an ISO8601 date
         or datetime (e.g. 2010-07-20 or 2010-07-20T10:00:00+05:00). Remember to URL-encode
         the ''+'' if you provide a timezone offset."}}'
-  recorded_at: Fri, 26 Jun 2026 15:47:55 GMT
+  recorded_at: Sun, 28 Jun 2026 09:32:26 GMT
 recorded_with: VCR 6.1.0

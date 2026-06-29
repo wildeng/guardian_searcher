@@ -16,6 +16,17 @@ RSpec.describe GuardianSearcher::Base do
     let(:described_class) { GuardianSearcher::Search.new(api_key: "test") }
     let(:search_term) { "politics" }
 
+    it "sends the api key as a request header, not in the URL" do
+      searcher = GuardianSearcher::Search.new(api_key: "test")
+
+      expect(Faraday).to receive(:get) do |url, _params, headers|
+        expect(url).not_to include("api-key")
+        expect(headers).to include("api-key" => "test")
+      end
+
+      searcher.search("politics")
+    end
+
     it "returns a 200" do
       VCR.use_cassette("returns_a_200") do
         response = described_class.search(search_term)

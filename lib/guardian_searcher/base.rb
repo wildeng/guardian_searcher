@@ -16,22 +16,22 @@ module GuardianSearcher
     # Options needs to be passed following Guardian API docs
     def search(query, options = {})
       url = search_uri + query_string(query, options)
-      Faraday.get(url)
+      Faraday.get(url, nil, headers)
     end
 
     def search_sections(query, options = {})
       url = sections_uri + query_string(query, options)
-      Faraday.get(url)
+      Faraday.get(url, nil, headers)
     end
 
     def search_tags(query, options = {})
       url = tags_uri + query_string(query, options)
-      Faraday.get(url)
+      Faraday.get(url, nil, headers)
     end
 
     def search_editions(query, options = {})
       url = editions_uri + query_string(query, options)
-      Faraday.get(url)
+      Faraday.get(url, nil, headers)
     end
 
     private
@@ -58,11 +58,15 @@ module GuardianSearcher
 
     def query_string(q, options = {})
       opt = build_options(options)
-      "?q=#{q}&#{opt}&api-key=#{@api_key}"
+      "?q=#{q}&#{opt}"
     end
 
     def build_options(options)
       Options.new(options).build_options
+    end
+
+    def headers
+      { "api-key" => @api_key }
     end
   end
 end

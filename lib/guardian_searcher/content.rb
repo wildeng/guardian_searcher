@@ -7,11 +7,11 @@ module GuardianSearcher
       attributes.each do |key, attribute_value|
         attr_name = key
         attr_name = snakecase(key) unless key.is_a? Symbol
-        self.class.send(:define_method, "#{attr_name}=".to_sym) do |value|
+        define_singleton_method("#{attr_name}=".to_sym) do |value|
           instance_variable_set("@#{attr_name}", value)
         end
 
-        self.class.send(:define_method, attr_name.to_sym) do
+        define_singleton_method(attr_name.to_sym) do
           instance_variable_get("@#{attr_name}")
         end
 
